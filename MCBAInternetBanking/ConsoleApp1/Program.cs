@@ -8,6 +8,7 @@ string? loginIdInput = Console.ReadLine();
 Console.Write("Enter Password: ");
 bool passwordInputComplete = false;
 StringBuilder passwordBuilder = new StringBuilder();
+// Hiding the password and instead displaying * for each read character other than enter
 while (!passwordInputComplete)
 {
     ConsoleKeyInfo inputKey = Console.ReadKey(true);
