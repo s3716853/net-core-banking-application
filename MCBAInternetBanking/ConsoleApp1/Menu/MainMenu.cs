@@ -14,7 +14,7 @@ internal class MainMenu : IConsoleMenu
     {
         Deposit = 1,
         Withdraw = 2,
-        Transfer = 3, 
+        Transfer = 3,
         Logout = 4,
         Exit = 5
     }
@@ -25,7 +25,7 @@ internal class MainMenu : IConsoleMenu
     { 
         _menu = CreateMenuString();
 
-        _menus.Add(MenuOption.Deposit, new LoginMenu());
+        _menus.Add(MenuOption.Deposit, new DepositMenu());
         _menus.Add(MenuOption.Withdraw, new LoginMenu());
         _menus.Add(MenuOption.Transfer, new LoginMenu());
         _menus.Add(MenuOption.Logout, new LoginMenu());
