@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MCBABackend.Services
 {
-    public static class DataInitiliseService
+    public static class DataInitialiseService
     {
         public static void RetrieveAndSave(string url)
         {
