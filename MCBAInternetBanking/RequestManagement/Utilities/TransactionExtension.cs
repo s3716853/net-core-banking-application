@@ -18,7 +18,7 @@ namespace RequestManagement.Utilities
                 $"DestinationAccountNumber={transaction.DestinationAccountNumber}",
                 $"Amount={transaction.Amount}",
                 $"Comment={transaction.Comment}",
-                $"Comment={transaction.TransactionTimeUtc}",
+                $"TransactionTimeUtc={transaction.TransactionTimeUtc}",
             }).ToString();
         }
     }
