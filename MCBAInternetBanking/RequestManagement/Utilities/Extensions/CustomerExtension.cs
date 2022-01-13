@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using RequestManagement.Models;
+using MCBABackend.Models;
 
-namespace RequestManagement.Utilities.Extensions
+namespace MCBABackend.Utilities.Extensions
 {
     public static class CustomerExtension
     {

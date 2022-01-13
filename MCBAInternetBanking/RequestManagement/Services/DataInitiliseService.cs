@@ -1,13 +1,8 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using MCBABackend.Models;
+using MCBABackend.Utilities;
 using Newtonsoft.Json;
-using RequestManagement.Models;
-using RequestManagement.Utilities;
-using RequestManagement.Utilities.Extensions;
 
-namespace RequestManagement.Services
+namespace MCBABackend.Services
 {
     public static class DataInitiliseService
     {

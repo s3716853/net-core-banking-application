@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace RequestManagement.Utilities.Extensions
+namespace MCBABackend.Utilities.Extensions
 {
     public static class MiscExtension
     {

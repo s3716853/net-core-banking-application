@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace RequestManagement.Utilities;
+﻿namespace MCBABackend.Utilities;
 public enum TransactionType
 {
     Deposit = 'D',
