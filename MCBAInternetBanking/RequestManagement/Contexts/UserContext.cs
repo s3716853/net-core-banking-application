@@ -19,10 +19,4 @@ public sealed class UserContext
         }
         return _instance;
     }
-
-    public static bool Verify(string? username, string? password)
-    {
-        // TODO
-        return true;
-    }
 }
