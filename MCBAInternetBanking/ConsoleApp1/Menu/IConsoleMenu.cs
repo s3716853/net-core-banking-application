@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCBAConsole.Menu;
+namespace RequestManagement.Contexts.Menu;
 
 interface IConsoleMenu
 {
