@@ -2,12 +2,10 @@
 
 public sealed class UserContext
 {
-    private string _username = "";
-    private string _password = "";
     private static UserContext _instance;
 
-    public string Username { get { return _username; } set { _username = value; } }
-    public string Password { get { return _password; } set { _password = value; } }
+    public string Username { get; set; } = "";
+    public string Password { get; set; } = "";
 
     private UserContext() { }
 
@@ -18,11 +16,5 @@ public sealed class UserContext
             _instance = new UserContext();
         }
         return _instance;
-    }
-
-    public static bool Verify(string? username, string? password)
-    {
-        // TODO
-        return true;
     }
 }

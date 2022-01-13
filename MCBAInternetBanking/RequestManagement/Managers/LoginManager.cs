@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using MCBABackend.Managers.Interfaces;
 using MCBABackend.Models;
 using MCBABackend.Utilities.Extensions;
 using Microsoft.Data.SqlClient;
 
 namespace MCBABackend.Managers
 {
-    public class LoginManager
+    public class LoginManager : ILoginManager
     {
         private readonly string _connectionString;
 
@@ -28,7 +29,26 @@ namespace MCBABackend.Managers
             command.Parameters.AddWithValue("passwordHash", login.PasswordHash);
 
             command.ExecuteNonQuery();
+
         }
+
+        public Login? RetrieveLogin(string loginId)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            using var command = connection.CreateCommand();
+            command.CommandText = "select * from Login where LoginID = @loginID";
+            command.Parameters.AddWithValue("loginID", loginId);
+
+            // Only a single
+            Login[] logins = command.GetDataTable().Select().Select(dataRow => new Login()
+            {
+                CustomerID = dataRow.Field<int>("CustomerID"),
+                // LoginID and PasswordHash will never be null on a returned Login
+                LoginID = dataRow.Field<string>("LoginID"),
+                PasswordHash = dataRow.Field<string>("PasswordHash")
+            }).ToArray();
+            return logins.Length == 0 ? null : logins[0];
+    }
     }
 }
 

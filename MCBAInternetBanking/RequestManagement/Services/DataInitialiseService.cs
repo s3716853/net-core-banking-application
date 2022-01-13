@@ -7,10 +7,10 @@ namespace MCBABackend.Services
 {
     public static class DataInitialiseService
     {
-        public static void RetrieveAndSave(string url, DatabaseManager databaseManager)
+        public static void RetrieveAndSave(string url)
         {
             List<Customer>? customers = Retrieve(url);
-            databaseManager.InitFromWebApiResponse(customers);
+            DatabaseManager.InitFromWebApiResponse(customers);
         }
         private static List<Customer>? Retrieve(string url)
         {

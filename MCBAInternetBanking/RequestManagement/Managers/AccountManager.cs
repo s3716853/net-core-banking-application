@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using MCBABackend.Managers.Interfaces;
 using MCBABackend.Models;
 using MCBABackend.Utilities.Extensions;
 using Microsoft.Data.SqlClient;
 
 namespace MCBABackend.Managers
 {
-    public class AccountManager
+    public class AccountManager : IAccountManager
     {
         private readonly string _connectionString;
 
