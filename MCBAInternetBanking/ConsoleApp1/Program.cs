@@ -1,3 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Console.WriteLine("Hello, World!");
+using MCBAConsole.Menu;
+
+namespace MCBAConsole;
+public class Program
+{
+    private static void Main()
+    {
+        new MainMenu().Run();
+    }
+}
