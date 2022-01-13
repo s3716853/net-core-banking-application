@@ -9,42 +9,40 @@ using MCBABackend.Models;
 using MCBABackend.Utilities.Extensions;
 using Microsoft.Data.SqlClient;
 
-namespace MCBABackend.Managers
+namespace MCBABackend.Managers;
+public static class DatabaseManager
 {
-    public static class DatabaseManager
-    {
-        // Public setter to allow dependency injection
-        // Private getter because only want services to use DatabaseManager not the rest of the Manager classes
-        public static ICustomerManager _customerManager { private get; set; }
-        public static ILoginManager _loginManager { private get; set; }
-        public static IAccountManager _accountManager { private get; set; }
-        public static ITransactionManager _transactionManager { private get; set; }
+    // Public setter to allow dependency injection
+    // Private getter because only want services to use DatabaseManager not the rest of the Manager classes
+    public static ICustomerManager _customerManager { private get; set; }
+    public static ILoginManager _loginManager { private get; set; }
+    public static IAccountManager _accountManager { private get; set; }
+    public static ITransactionManager _transactionManager { private get; set; }
 
-        public static void InitFromWebApiResponse(List<Customer>? customers)
+    public static void InitFromWebApiResponse(List<Customer>? customers)
+    {
+        customers.ForEach(customer =>
         {
-            customers.ForEach(customer =>
+            _customerManager.Insert(customer);
+            _loginManager.Insert(customer.Login);
+            customer.Accounts.ForEach(account =>
             {
-                _customerManager.Insert(customer);
-                _loginManager.Insert(customer.Login);
-                customer.Accounts.ForEach(account =>
+                _accountManager.Insert(account);
+                account.Transactions.ForEach(transaction =>
                 {
-                    _accountManager.Insert(account);
-                    account.Transactions.ForEach(transaction =>
-                    {
-                        _transactionManager.Insert(transaction);
-                    });
+                    _transactionManager.Insert(transaction);
                 });
             });
-        }
+        });
+    }
 
-        public static List<Customer> RetrieveCustomers()
-        {
-            return _customerManager.RetrieveCustomers();
-        }
+    public static List<Customer> RetrieveCustomers()
+    {
+        return _customerManager.RetrieveCustomers();
+    }
 
-        public static Login? RetrieveLogin(string loginId)
-        {
-            return _loginManager.RetrieveLogin(loginId);
-        }
+    public static Login? RetrieveLogin(string loginId)
+    {
+        return _loginManager.RetrieveLogin(loginId);
     }
 }
