@@ -42,9 +42,9 @@ namespace MCBABackend.Managers
             return _customerManager.RetrieveCustomers();
         }
 
-        public static Login? RetrieveLogin(string loginID)
+        public static Login? RetrieveLogin(string loginId)
         {
-            return _loginManager.RetrieveLogin(loginID);
+            return _loginManager.RetrieveLogin(loginId);
         }
     }
 }
