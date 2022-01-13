@@ -1,19 +1,16 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using MCBABackend.Managers;
+using MCBABackend.Models;
+using MCBABackend.Utilities;
 using Newtonsoft.Json;
-using RequestManagement.Models;
-using RequestManagement.Utilities;
-using RequestManagement.Utilities.Extensions;
 
-namespace RequestManagement.Services
+namespace MCBABackend.Services
 {
-    public static class DataInitiliseService
+    public static class DataInitialiseService
     {
-        public static void RetrieveAndSave(string url)
+        public static void RetrieveAndSave(string url, DatabaseManager databaseManager)
         {
             List<Customer>? customers = Retrieve(url);
+            databaseManager.InitFromWebApiResponse(customers);
         }
         private static List<Customer>? Retrieve(string url)
         {
@@ -23,8 +20,7 @@ namespace RequestManagement.Services
             // Convert JSON into objects.
             List<Customer>? customers = JsonConvert.DeserializeObject<List<Customer>>(jsonResponse, new JsonSerializerSettings
             {
-                // See here for DateTime format string documentation:
-                // https://docs.microsoft.com/en-au/dotnet/standard/base-types/custom-date-and-time-format-strings
+                // EXAMPLE 26/09/1999 01:02:03 PM
                 DateFormatString = "dd/MM/yyyy hh:mm:ss tt"
             });
 

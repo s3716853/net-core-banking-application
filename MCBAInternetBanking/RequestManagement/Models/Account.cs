@@ -1,4 +1,4 @@
-﻿namespace RequestManagement.Models
+﻿namespace MCBABackend.Models
 {
     public class Account
     {
