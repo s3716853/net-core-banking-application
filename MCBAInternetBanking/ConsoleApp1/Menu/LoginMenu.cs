@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MCBABackend.Contexts;
+using MCBABackend.Services;
 
 namespace MCBAConsole.Menu;
 
@@ -21,7 +22,7 @@ internal class LoginMenu : IConsoleMenu
 
             UserContext userContext = UserContext.GetInstance();
 
-            if (UserContext.Verify(loginId, password))
+            if (LoginService.Verify(loginId, password))
             {
                 // A verified password will never have a null loginid 
                 #pragma warning disable CS8601 // Possible null reference assignment.
@@ -33,7 +34,7 @@ internal class LoginMenu : IConsoleMenu
 
     }
 
-    private static (string? loginId, string password) DisplayMenu()
+    private static (string loginId, string password) DisplayMenu()
     {
         Console.Write("Enter Login ID: ");
         string? loginIdInput = Console.ReadLine();
@@ -54,7 +55,7 @@ internal class LoginMenu : IConsoleMenu
         }
         // Ensurinng there is a new line after login
         Console.WriteLine();
-        return (loginId: loginIdInput, password: passwordBuilder.ToString());
+        return (loginId: (loginIdInput ?? ""), password: passwordBuilder.ToString());
     }
 }
 
