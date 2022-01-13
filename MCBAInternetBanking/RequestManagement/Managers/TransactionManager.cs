@@ -29,7 +29,7 @@ namespace MCBABackend.Managers
             command.Parameters.AddWithValue("amount", transaction.Amount);
             command.Parameters.AddWithValue("comment", transaction.Comment.GetObjectOrDbNull());
             command.Parameters.AddWithValue("transactionTimeUtc", transaction.TransactionTimeUtc);
-            Console.WriteLine(command.CommandText);
+
             command.ExecuteNonQuery();
         }
     }
