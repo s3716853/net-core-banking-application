@@ -1,4 +1,5 @@
-﻿using MCBABackend.Models;
+﻿using MCBABackend.Managers;
+using MCBABackend.Models;
 using MCBABackend.Utilities;
 using Newtonsoft.Json;
 
@@ -6,9 +7,10 @@ namespace MCBABackend.Services
 {
     public static class DataInitialiseService
     {
-        public static void RetrieveAndSave(string url)
+        public static void RetrieveAndSave(string url, DatabaseManager databaseManager)
         {
             List<Customer>? customers = Retrieve(url);
+            databaseManager.InitFromWebApiResponse(customers);
         }
         private static List<Customer>? Retrieve(string url)
         {
@@ -18,8 +20,7 @@ namespace MCBABackend.Services
             // Convert JSON into objects.
             List<Customer>? customers = JsonConvert.DeserializeObject<List<Customer>>(jsonResponse, new JsonSerializerSettings
             {
-                // See here for DateTime format string documentation:
-                // https://docs.microsoft.com/en-au/dotnet/standard/base-types/custom-date-and-time-format-strings
+                // EXAMPLE 26/09/1999 01:02:03 PM
                 DateFormatString = "dd/MM/yyyy hh:mm:ss tt"
             });
 
