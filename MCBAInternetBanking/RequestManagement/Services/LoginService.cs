@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MCBABackend.Managers;
+using MCBABackend.Models;
+using SimpleHashing;
 
 namespace MCBABackend.Services
 {
@@ -10,11 +13,15 @@ namespace MCBABackend.Services
     {
         public static bool Verify(string userId, string password)
         {
-
-            string passwordHash = "";
-
-
-            return true;
+            Login? login = DatabaseManager.RetrieveLogin(userId);
+            if (login != null)
+            {
+                return PBKDF2.Verify(login.PasswordHash, password);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -40,14 +40,15 @@ namespace MCBABackend.Managers
             command.Parameters.AddWithValue("loginID", loginId);
 
             // Only a single
-            return command.GetDataTable().Select().Select(dataRow => new Login()
+            Login[] logins = command.GetDataTable().Select().Select(dataRow => new Login()
             {
                 CustomerID = dataRow.Field<int>("CustomerID"),
                 // LoginID and PasswordHash will never be null on a returned Login
                 LoginID = dataRow.Field<string>("LoginID"),
                 PasswordHash = dataRow.Field<string>("PasswordHash")
-            }).ToArray()[0];
-        }
+            }).ToArray();
+            return logins.Length == 0 ? null : logins[0];
+    }
     }
 }
 
