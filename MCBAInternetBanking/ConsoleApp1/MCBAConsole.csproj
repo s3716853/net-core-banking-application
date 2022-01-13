@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RequestManagement\RequestManagement.csproj" />
+  </ItemGroup>
+
 </Project>
