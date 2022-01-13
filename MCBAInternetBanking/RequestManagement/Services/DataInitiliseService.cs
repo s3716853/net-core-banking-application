@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
-using RequestManagement.Model;
+using RequestManagement.Models;
 using RequestManagement.Utilities;
 using RequestManagement.Utilities.Extensions;
 
@@ -11,10 +11,12 @@ namespace RequestManagement.Services
 {
     public static class DataInitiliseService
     {
-        public static void Retrieve()
+        public static void RetrieveAndSave(string url)
         {
-            const string url = "https://coreteaching01.csit.rmit.edu.au/~e103884/wdt/services/customers/";
-
+            List<Customer>? customers = Retrieve(url);
+        }
+        private static List<Customer>? Retrieve(string url)
+        {
             using var client = new HttpClient();
             string jsonResponse = client.GetStringAsync(url).Result;
 
@@ -26,9 +28,9 @@ namespace RequestManagement.Services
                 DateFormatString = "dd/MM/yyyy hh:mm:ss tt"
             });
 
-            customers.ForEach((customer) =>
+            customers?.ForEach((customer) =>
             {
-                // Going to fields in objects related to Customer and filling fields which are not (explicetly)
+                // Going to fields in objects related to Customer and filling fields which are not (explicitly)
                 // returned by the web service
                 customer.Login.CustomerID = customer.CustomerID;
 
@@ -45,13 +47,8 @@ namespace RequestManagement.Services
 
                     });
                 });
-
-
-
-                Console.WriteLine("==========================================");
-                Console.WriteLine(customer.AsString().TrimEnd());
-                Console.WriteLine("==========================================");
             });
+            return customers;
         }
     }
 }

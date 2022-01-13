@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using RequestManagement.Model;
+using RequestManagement.Models;
 
 namespace RequestManagement.Utilities.Extensions
 {
