@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RequestManagement.Utilities
+namespace RequestManagement.Utilities.Extensions
 {
     public static class StringBuilderExtension
     {

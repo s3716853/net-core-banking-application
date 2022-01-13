@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using RequestManagement.Model;
 
-namespace RequestManagement.Utilities
+namespace RequestManagement.Utilities.Extensions
 {
     public static class CustomerExtension
     {
