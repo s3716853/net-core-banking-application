@@ -37,6 +37,7 @@ public static class DatabaseManager
         });
     }
 
+    // Retrieves customers WITHOUT other tables, so no LOGIN or ACCOUNTS
     public static List<Customer> RetrieveCustomers()
     {
         return _customerManager.RetrieveCustomers();
@@ -52,10 +53,6 @@ public static class DatabaseManager
         return _accountManager.RetrieveUserAccounts(customerId);
     }
 
-    public static void Update(Account account)
-    {
-        _accountManager.Update(account);
-    }
     public static void Deposit(Account account, decimal amount, string? comment)
     {
         account.Balance += amount;
@@ -156,5 +153,10 @@ public static class DatabaseManager
         {
             throw new ArgumentException("Cannot transfer more than is available in account");
         }
+    }
+
+    public static Account? RetrieveAccount(int accountNumber)
+    {
+        return _accountManager.RetrieveAccount(accountNumber);
     }
 }

@@ -24,7 +24,7 @@ public class DepositWithdrawMenu : ConsoleMenu
         while (running)
         {
             decimal depositAmount = AmountMenu();
-            List<Account> customerAccounts = DepositWithdrawService.RetrieveAccounts();
+            List<Account> customerAccounts = AccountService.RetrieveAccounts();
             Account accountTo = AccountSelectionMenu(customerAccounts);
             string? comment = GetUserInputLine("Enter a comment? (Press enter for no comment): ");
             if (_depositMode)

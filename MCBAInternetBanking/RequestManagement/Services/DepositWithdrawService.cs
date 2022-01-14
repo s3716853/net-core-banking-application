@@ -17,10 +17,4 @@ public static class DepositWithdrawService
         comment = comment.Length > 0 ? comment : null;
         DatabaseManager.Withdraw(account, amount, comment);
     }
-
-    // Retrieves logged in user's accounts
-    public static List<Account> RetrieveAccounts()
-    {
-        return DatabaseManager.RetrieveUserAccounts(UserContext.GetInstance().CustomerId);
-    }
 }

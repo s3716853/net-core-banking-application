@@ -79,6 +79,29 @@ public abstract class ConsoleMenu : IConsoleMenu
 
         return customerAccounts[int.Parse(input.ToString()) - 1];
     }
+    protected decimal DecimalInputMenu(string menuString)
+    {
+        bool menuRunning = true;
+        decimal amount = 0;
+        while (menuRunning)
+        {
+            string? input = GetUserInputLine(menuString);
+            if (input == null)
+            {
+                Console.WriteLine("Please enter an amount");
+            }
+            else
+            {
+                if (decimal.TryParse(input, out decimal parsedInput))
+                {
+                    amount = parsedInput;
+                    menuRunning = false;
+                }
+            }
+        }
+
+        return amount;
+    }
 
     private static string MenuInput(string menu)
     {
