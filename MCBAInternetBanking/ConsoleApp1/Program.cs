@@ -16,6 +16,7 @@ public class Program
         }
 
         new MainMenu().Run();
+        Console.WriteLine("Program Ending");
     }
 
     private static void PrepareManagers()
