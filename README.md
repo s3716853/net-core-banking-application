@@ -1,5 +1,7 @@
 # s3716853-a1
 Matthew Eletva's (s3716853) Web Development Technologies Assignment 1 2022 Summer
+## Github URL
+https://github.com/rmit-wdt-fs-2022/s3716853-a1
 ## Design Patterns
 ### Facade
 The Facade pattern is when a larger system operated by many sub-systems is interfaced/interacted with a 'facade', a class which supplies a more limited set of functionality however it implements all the features the client should wish for. This can allows the codebase to be more easily used and understood, as the common functionalites have been abstracted out to the facade class. It also reduces how coupled the classes are with the further sub-systems, as the only dependency is the facade.
