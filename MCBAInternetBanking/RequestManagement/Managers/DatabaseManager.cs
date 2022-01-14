@@ -77,7 +77,7 @@ public static class DatabaseManager
     public static void Withdraw(Account account, decimal amount, string? comment)
     {
         if (account.HasFreeTransactions() && account.Balance > amount + Constants.WithdrawTransactionFee || 
-            account.HasFreeTransactions() && account.Balance > amount)
+            !account.HasFreeTransactions() && account.Balance > amount)
         {
             account.Balance -= amount;
             _transactionManager.Insert(new Transaction()
