@@ -98,4 +98,48 @@ public class AccountManager : IAccountManager
 
         command.ExecuteNonQuery();
     }
+
+    public Account? RetrieveAccount(int accountNumber)
+    {
+        using var connection = new SqlConnection(_connectionString);
+        using var command = connection.CreateCommand();
+        command.CommandText =
+            @"SELECT * FROM Account 
+            LEFT JOIN [Transaction] 
+            ON Account.AccountNumber = [Transaction].[AccountNumber]
+            WHERE Account.AccountNumber = @accountNumber;";
+        command.Parameters.AddWithValue("accountNumber", accountNumber);
+
+        Account? account = null;
+
+        foreach (DataRow dataRow in command.GetDataTable().Select())
+        {
+            if (account == null)
+            {
+                account = new Account()
+                {
+                    AccountNumber = dataRow.Field<int>(nameof(Account.AccountNumber)),
+                    AccountType = char.Parse(dataRow.Field<string?>(nameof(Account.AccountType))),
+                    Balance = dataRow.Field<decimal>(nameof(Account.Balance)),
+                    CustomerID = dataRow.Field<int>(nameof(Account.CustomerID)),
+                    Transactions = new List<Transaction>()
+                };
+            }
+
+            if (dataRow.Field<int?>(nameof(Transaction.TransactionID)) != null)
+            {
+                account.Transactions.Add(new Transaction()
+                {
+                    TransactionType = char.Parse(dataRow.Field<string?>(nameof(Transaction.TransactionType))),
+                    AccountNumber = dataRow.Field<int>(nameof(Transaction.AccountNumber)),
+                    DestinationAccountNumber = dataRow.Field<int?>(nameof(Transaction.DestinationAccountNumber)),
+                    Amount = dataRow.Field<decimal>(nameof(Transaction.Amount)),
+                    Comment = dataRow.Field<string?>(nameof(Transaction.Comment)),
+                    TransactionTimeUtc = dataRow.Field<DateTime>(nameof(Transaction.TransactionTimeUtc)),
+                });
+            }
+        }
+
+        return account;
+    }
 }

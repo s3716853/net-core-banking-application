@@ -11,4 +11,5 @@ public class Constants
     public static decimal WithdrawTransactionFee = new decimal(0.05);
     public static decimal TransferTransactionFee = new decimal(0.05);
     public static string WithdrawFeeComment = "Standard withdraw fee";
+    public static string TransferFeeComment = "Standard transfer fee";
 }
