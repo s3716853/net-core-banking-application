@@ -27,3 +27,4 @@ My code specifically implements it with the MCBABackend.Managers.DatabaseManager
 
 Each of these is a dependency references only by their interfaces, and are set in MCBAConsole.Program. So long as each of the interfaces are met, the underlying code can be easily modified. This could be useful for testing, as the manager classes are the ones which actually interact with the database, so a testing implementation of all of these managers could be made to test all other functionality without worrying about the database or network requests.
 ## Class Library
+I made the backend for my application a class library (MCBABackend). By implemnting it this way, it is much easier to make new user interface (such as in Assignment 2) as the logic for the backend of the application and its database interactions can be re-used and extended if needed. It also helsp facilitate seperation of concerns, as the front-end and back-end are seperated.
