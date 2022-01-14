@@ -8,21 +8,44 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace MCBAConsole.Menu;
 
-public class DepositMenu : ConsoleMenu
+public class DepositWithdrawMenu : ConsoleMenu
 {
     private readonly string _menuAmount;
+    private readonly bool _depositMode;
 
-    public DepositMenu()
+    public DepositWithdrawMenu(bool depositMode)
     {
-        _menuAmount = CreateMenuString();
+        _depositMode = depositMode;
+        _menuAmount = CreateMenuString(depositMode ? "Deposit" : "Withdraw");
     }
     public override void Run()
     {
-        decimal depositAmount = AmountMenu();
-        List<Account> customerAccounts = DepositService.RetrieveAccounts();
-        Account accountTo = AccountMenu(depositAmount, customerAccounts);
-        string? comment = GetUserInputLine("Enter a comment? (Press enter for no comment): ");
-        DepositService.Deposit(accountTo, depositAmount, comment);
+        bool running = true;
+        while (running)
+        {
+            decimal depositAmount = AmountMenu();
+            List<Account> customerAccounts = DepositWithdrawService.RetrieveAccounts();
+            Account accountTo = AccountMenu(depositAmount, customerAccounts);
+            string? comment = GetUserInputLine("Enter a comment? (Press enter for no comment): ");
+            if (_depositMode)
+            {
+                DepositWithdrawService.Deposit(accountTo, depositAmount, comment);
+                running = false;
+            }
+            else
+            {
+                try
+                {
+                    DepositWithdrawService.Withdraw(accountTo, depositAmount, comment);
+                    running = false;
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
     }
 
     private decimal AmountMenu()
@@ -63,14 +86,14 @@ public class DepositMenu : ConsoleMenu
 
         string[] menuArray = new[]
         {
-            $"Depositing {depositAmount}",
-            "Which account will you deposit to?",
+            $"Entered {depositAmount}",
+            "Which account? ",
         };
         string[] accounts = customerAccounts.Select((account, index) =>
         {
             // adding an allowed menu input for each account
             allowedMenuInputs[index] = char.Parse($"{index + 1}");
-            return $"[{index + 1}] {account.AccountNumber} (type={account.AccountType})";
+            return $"[{index + 1}] {account.AccountNumber} (balance={account.Balance} type={account.AccountType})";
         }).ToArray();
 
         string menu = new StringBuilder().AppendArray(menuArray.Concat(accounts).ToArray()).ToString();
@@ -81,12 +104,12 @@ public class DepositMenu : ConsoleMenu
         return customerAccounts[int.Parse(input.ToString())-1];
     }
 
-    private static string CreateMenuString()
+    private static string CreateMenuString(string title)
     {
         return new StringBuilder().AppendArray(new string[]
         {
-            "=Deposit=",
-            "Deposit Amount: ",
+            $"={title}=",
+            "Amount: ",
 
         }).ToString().TrimEnd();
     } 

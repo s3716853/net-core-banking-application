@@ -25,8 +25,8 @@ internal class MainMenu : ConsoleMenu
     { 
         _menu = CreateMenuString();
 
-        _menus.Add(MenuOption.Deposit, new DepositMenu());
-        _menus.Add(MenuOption.Withdraw, new LoginMenu());
+        _menus.Add(MenuOption.Deposit, new DepositWithdrawMenu(true));
+        _menus.Add(MenuOption.Withdraw, new DepositWithdrawMenu(false));
         _menus.Add(MenuOption.Transfer, new LoginMenu());
         _menus.Add(MenuOption.Logout, new LoginMenu());
     }
