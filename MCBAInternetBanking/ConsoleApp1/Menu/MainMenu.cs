@@ -15,8 +15,9 @@ internal class MainMenu : ConsoleMenu
         Deposit = 1,
         Withdraw = 2,
         Transfer = 3,
-        Logout = 4,
-        Exit = 5
+        Statements = 4,
+        Logout = 5,
+        Exit = 6
     }
 
     private readonly Dictionary<MenuOption, IConsoleMenu> _menus = new();
@@ -28,6 +29,7 @@ internal class MainMenu : ConsoleMenu
         _menus.Add(MenuOption.Deposit, new DepositWithdrawMenu(true));
         _menus.Add(MenuOption.Withdraw, new DepositWithdrawMenu(false));
         _menus.Add(MenuOption.Transfer, new TransferMenu());
+        _menus.Add(MenuOption.Statements, new StatementMenu());
         _menus.Add(MenuOption.Logout, new LoginMenu());
     }
 
@@ -64,8 +66,9 @@ internal class MainMenu : ConsoleMenu
                 "[1] Deposit",
                 "[2] Withdraw",
                 "[3] Transfer",
-                "[4] Logout",
-                "[5] Exit",
+                "[4] Statements",
+                "[5] Logout",
+                "[6] Exit",
                 "",
                 "Enter an option: "
             };
