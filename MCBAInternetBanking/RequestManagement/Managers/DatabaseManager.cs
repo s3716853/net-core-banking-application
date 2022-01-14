@@ -69,4 +69,30 @@ public static class DatabaseManager
             TransactionTimeUtc = DateTime.Now.ToUniversalTime()
         });
     }
+
+    /// <summary>
+    /// Throws ArgumentException if there is not enough money in supplied account to withdraw supplied amount
+    /// </summary>
+    /// 
+    public static void Withdraw(Account account, decimal amount, string? comment)
+    {
+        if (account.Transactions.Count > 2 && account.Balance > amount + Constants.WithdrawTransactionFee || 
+            account.Transactions.Count < 2 && account.Balance > amount)
+        {
+            account.Balance -= amount;
+            _accountManager.Update(account);
+            _transactionManager.Insert(new Transaction()
+            {
+                TransactionType = (char)TransactionType.Withdraw,
+                AccountNumber = account.AccountNumber,
+                Amount = amount,
+                Comment = comment,
+                TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+            });
+        }
+        else
+        {
+            throw new ArgumentException("Cannot withdraw more than is available in account");
+        }
+    }
 }
