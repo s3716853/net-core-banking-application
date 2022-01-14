@@ -24,4 +24,9 @@ public static class AccountExtension
             transactionStrings
         }).ToString();
     }
+
+    public static bool HasFreeTransactions(this Account account)
+    {
+        return account.Transactions.Count < 2;
+    }
 }

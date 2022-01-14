@@ -76,8 +76,8 @@ public static class DatabaseManager
     /// 
     public static void Withdraw(Account account, decimal amount, string? comment)
     {
-        if (account.Transactions.Count >= 2 && account.Balance > amount + Constants.WithdrawTransactionFee || 
-            account.Transactions.Count < 2 && account.Balance > amount)
+        if (account.HasFreeTransactions() && account.Balance > amount + Constants.WithdrawTransactionFee || 
+            account.HasFreeTransactions() && account.Balance > amount)
         {
             account.Balance -= amount;
             _transactionManager.Insert(new Transaction()
@@ -105,6 +105,56 @@ public static class DatabaseManager
         else
         {
             throw new ArgumentException("Cannot withdraw more than is available in account");
+        }
+    }
+
+    public static void Transfer(Account accountTo, Account accountFrom, decimal amount, string? comment)
+    {
+        if (accountFrom.HasFreeTransactions() && accountFrom.Balance > amount ||
+            !accountFrom.HasFreeTransactions() && accountFrom.Balance > amount+Constants.TransferTransactionFee)
+        {
+            accountFrom.Balance -= amount;
+            accountTo.Balance += amount;
+            // Transaction for the AccountFrom account
+            _transactionManager.Insert(new Transaction()
+            {
+                TransactionType = (char)TransactionType.Transfer,
+                AccountNumber = accountFrom.AccountNumber,
+                DestinationAccountNumber = accountTo.AccountNumber,
+                Amount = amount,
+                Comment = comment,
+                TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+            });
+            // Transaction for the AccountTo account
+            _transactionManager.Insert(new Transaction()
+            {
+                TransactionType = (char)TransactionType.Transfer,
+                AccountNumber = accountTo.AccountNumber,
+                Amount = amount,
+                Comment = comment,
+                TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+            });
+
+            if (!accountFrom.HasFreeTransactions())
+            {
+                // Transaction for the transfer fee to AccountFrom
+                accountFrom.Balance -= Constants.TransferTransactionFee;
+                _transactionManager.Insert(new Transaction()
+                {
+                    TransactionType = (char)TransactionType.Transfer,
+                    AccountNumber = accountFrom.AccountNumber,
+                    Amount = Constants.TransferTransactionFee,
+                    Comment = Constants.TransferFeeComment,
+                    TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+                });
+            }
+
+            _accountManager.Update(accountFrom);
+            _accountManager.Update(accountTo);
+        }
+        else
+        {
+            throw new ArgumentException("Cannot transfer more than is available in account");
         }
     }
 }
