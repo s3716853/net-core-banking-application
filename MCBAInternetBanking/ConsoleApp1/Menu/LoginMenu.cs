@@ -8,12 +8,13 @@ using MCBABackend.Services;
 
 namespace MCBAConsole.Menu;
 
-internal class LoginMenu : IConsoleMenu
+internal class LoginMenu : ConsoleMenu
 {
     public LoginMenu(){}
 
-    public void Run()
+    public override void Run()
     {
+        Console.Clear();
         bool loggedIn = false;
 
         while (!loggedIn)
