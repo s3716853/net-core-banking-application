@@ -1,4 +1,8 @@
-﻿namespace MCBAConsole.Menu;
+﻿using System.Text;
+using MCBABackend.Models;
+using MCBABackend.Utilities.Extensions;
+
+namespace MCBAConsole.Menu;
 
 public abstract class ConsoleMenu : IConsoleMenu
 {
@@ -51,6 +55,29 @@ public abstract class ConsoleMenu : IConsoleMenu
     {
         Console.Write(message);
         return Console.ReadLine();
+    }
+
+    protected static Account AccountSelectionMenu(List<Account> customerAccounts)
+    {
+        char[] allowedMenuInputs = new char[customerAccounts.Count];
+
+        string[] menuArray = new[]
+        {
+            "Which account? ",
+        };
+        string[] accounts = customerAccounts.Select((account, index) =>
+        {
+            // adding an allowed menu input for each account
+            allowedMenuInputs[index] = char.Parse($"{index + 1}");
+            return $"[{index + 1}] {account.AccountNumber} (balance={account.Balance} type={account.AccountType})";
+        }).ToArray();
+
+        string menu = new StringBuilder().AppendArray(menuArray.Concat(accounts).ToArray()).ToString();
+
+        char input = LoopUntilAllowedInput(menu, $"Please only enter a number from 1 to {customerAccounts.Count}",
+            allowedMenuInputs);
+
+        return customerAccounts[int.Parse(input.ToString()) - 1];
     }
 
     private static string MenuInput(string menu)
