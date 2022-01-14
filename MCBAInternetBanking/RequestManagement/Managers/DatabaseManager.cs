@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MCBABackend.Managers.Interfaces;
 using MCBABackend.Models;
+using MCBABackend.Utilities;
 using MCBABackend.Utilities.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -44,5 +45,28 @@ public static class DatabaseManager
     public static Login? RetrieveLogin(string loginId)
     {
         return _loginManager.RetrieveLogin(loginId);
+    }
+
+    public static List<Account> RetrieveUserAccounts(int customerId)
+    {
+        return _accountManager.RetrieveUserAccounts(customerId);
+    }
+
+    public static void Update(Account account)
+    {
+        _accountManager.Update(account);
+    }
+    public static void Deposit(Account account, decimal amount, string? comment)
+    {
+        account.Balance += amount;
+        _accountManager.Update(account);
+        _transactionManager.Insert(new Transaction()
+        {
+            TransactionType = (char) TransactionType.Deposit,
+            AccountNumber = account.AccountNumber,
+            Amount = amount,
+            Comment = comment,
+            TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+        });
     }
 }

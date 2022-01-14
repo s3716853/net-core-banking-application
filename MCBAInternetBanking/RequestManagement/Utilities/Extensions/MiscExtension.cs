@@ -19,5 +19,17 @@ public static class MiscExtension
     // Taken from the lectures (Week 3), thanks for the method!
     // Returns either the original object, BDNull if null as the database cannot handle C# null
     public static object GetObjectOrDbNull(this object value) => value ?? DBNull.Value;
+
+    // Checks the decimal meets the business rules for a deposit
+    // RETURNS - String representing error message. Null if no issue;
+    public static string? MeetsDepositRules(this decimal instance)
+    {
+        if (instance < 0)
+        {
+            return "Deposit must be greator than 0";
+        }
+
+        return null;
+    }
 }
 

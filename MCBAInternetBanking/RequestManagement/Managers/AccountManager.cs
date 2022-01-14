@@ -30,4 +30,72 @@ public class AccountManager : IAccountManager
 
         command.ExecuteNonQuery();
     }
+
+    public List<Account> RetrieveUserAccounts(int customerId)
+    {
+        using var connection = new SqlConnection(_connectionString);
+        using var command = connection.CreateCommand();
+        command.CommandText = @"SELECT * FROM Account 
+            LEFT JOIN [Transaction] 
+            ON Account.AccountNumber = [Transaction].[AccountNumber]
+            WHERE Account.CustomerId = @customerId";
+        command.Parameters.AddWithValue("customerId", customerId);
+
+        Dictionary<int, Account> accountToId = new Dictionary<int, Account>();
+
+        foreach (DataRow dataRow in command.GetDataTable().Select())
+        {
+            Account account;
+            // Each row in the table could have the information for a previous account
+            // As one account can have many transactions
+            // and trhe SQL command returns the Account joined with each Transations as a row
+            if (!accountToId.TryGetValue(dataRow.Field<int>(nameof(Account.AccountNumber)), out account))
+            {
+                account = new Account()
+                {
+                    AccountNumber = dataRow.Field<int>(nameof(Account.AccountNumber)),
+                    AccountType = char.Parse(dataRow.Field<string?>(nameof(Account.AccountType))),
+                    Balance = dataRow.Field<decimal>(nameof(Account.Balance)),
+                    CustomerID = dataRow.Field<int>(nameof(Account.CustomerID)),
+                    Transactions = new List<Transaction>()
+                };
+                accountToId.Add(dataRow.Field<int>(nameof(Account.AccountNumber)), account);
+            }
+
+            // Some Account can have no transactions due to SQL left join
+            if (dataRow.Field<int?>(nameof(Transaction.TransactionID)) != null)
+            {
+                account.Transactions.Add(new Transaction()
+                    {
+                        TransactionID = dataRow.Field<int>(nameof(Transaction.TransactionID)),
+                        TransactionType = char.Parse(dataRow.Field<string?>(nameof(Transaction.TransactionType))),
+                        AccountNumber = dataRow.Field<int>(nameof(Transaction.AccountNumber)),
+                        DestinationAccountNumber = dataRow.Field<int?>(nameof(Transaction.DestinationAccountNumber)),
+                        Amount = dataRow.Field<decimal>(nameof(Transaction.Amount)),
+                        Comment = dataRow.Field<string?>(nameof(Transaction.Comment)),
+                        TransactionTimeUtc = dataRow.Field<DateTime>(nameof(Transaction.TransactionTimeUtc)),
+                    });
+            }
+        }
+
+        return accountToId.Values.ToList();
+    }
+
+    public void Update(Account account)
+    {
+        using SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+
+        using var command = connection.CreateCommand();
+        // I'm assuming that I won't ever need to update an Account to change the AccountNumber, CustomerId
+        command.CommandText = @"
+            UPDATE Account
+            SET AccountType = @accountType, Balance = @balance
+            WHERE AccountNumber = @accountNumber";
+        command.Parameters.AddWithValue("accountType", account.AccountType);
+        command.Parameters.AddWithValue("balance", account.Balance);
+        command.Parameters.AddWithValue("accountNumber", account.AccountNumber);
+
+        command.ExecuteNonQuery();
+    }
 }
