@@ -7,7 +7,7 @@ using MCBABackend.Contexts;
 
 namespace MCBAConsole.Menu;
 
-internal class MainMenu : IConsoleMenu
+internal class MainMenu : ConsoleMenu
 {
     private readonly string _menu;
     private enum MenuOption
@@ -31,7 +31,7 @@ internal class MainMenu : IConsoleMenu
         _menus.Add(MenuOption.Logout, new LoginMenu());
     }
 
-    public void Run()
+    public override void Run()
     {
         // Run login on startup
         _menus[MenuOption.Logout].Run();
@@ -40,7 +40,7 @@ internal class MainMenu : IConsoleMenu
         while (programRunning)
         {
             Console.WriteLine($"--- {UserContext.GetInstance().Username} ---");
-            MenuOption selectedOption = LoopUntilAllowedInput();
+            MenuOption selectedOption = LoopUntilAllowedInput<MenuOption>(_menu, "Please Enter a Number From 1-5");
             if (selectedOption == MenuOption.Exit) {
                 programRunning = false;
             }
@@ -76,35 +76,6 @@ internal class MainMenu : IConsoleMenu
 
         // Using TrimEnd() to remove the new line added in above foreach loop to allow input to be on same line as text
         return menuOptionsStringBuilder.ToString().TrimEnd();
-    }
-
-    private MenuOption LoopUntilAllowedInput()
-    {
-        bool menuRunning = true;
-        MenuOption selectedOption = 0;
-        while (menuRunning)
-        {
-            string menuInput = MenuInput();
-            if (Enum.TryParse<MenuOption>(menuInput, out selectedOption))
-            {
-                menuRunning = false;
-            }
-            else
-            {
-                Console.WriteLine("Please Enter a Number From 1-5");
-            }
-        }
-
-        return selectedOption;
-    }
-
-    private string MenuInput()
-    {
-        Console.Write(_menu);
-        ConsoleKeyInfo inputKey = Console.ReadKey();
-        // Ensuring menu has new line after input
-        Console.WriteLine("");
-        return inputKey.KeyChar.ToString();
     }
 }
 
