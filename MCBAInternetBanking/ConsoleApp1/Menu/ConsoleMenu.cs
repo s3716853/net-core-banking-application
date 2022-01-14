@@ -4,15 +4,7 @@ public abstract class ConsoleMenu : IConsoleMenu
 {
     public abstract void Run();
 
-    private enum MenuOption
-    {
-        Deposit = 1,
-        Withdraw = 2,
-        Transfer = 3,
-        Logout = 4,
-        Exit = 5
-    }
-    public static TEnum LoopUntilAllowedInput<TEnum>(string menu, string error) where TEnum : struct
+    protected static TEnum LoopUntilAllowedInput<TEnum>(string menu, string error) where TEnum : struct
     {
         bool menuRunning = true;
         TEnum selectedOption = default;
@@ -30,6 +22,12 @@ public abstract class ConsoleMenu : IConsoleMenu
         }
 
         return selectedOption;
+    }
+
+    protected static string? GetUserInputLine(string message)
+    {
+        Console.Write(message);
+        return Console.ReadLine();
     }
 
     private static string MenuInput(string menu)

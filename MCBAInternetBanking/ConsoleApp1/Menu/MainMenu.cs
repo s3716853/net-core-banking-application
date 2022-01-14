@@ -39,7 +39,7 @@ internal class MainMenu : ConsoleMenu
         bool programRunning = true;
         while (programRunning)
         {
-            Console.WriteLine($"--- {UserContext.GetInstance().Username} ---");
+            Console.WriteLine($"--- {UserContext.GetInstance().LoginId} ---");
             MenuOption selectedOption = LoopUntilAllowedInput<MenuOption>(_menu, "Please Enter a Number From 1-5");
             if (selectedOption == MenuOption.Exit) {
                 programRunning = false;
@@ -48,7 +48,7 @@ internal class MainMenu : ConsoleMenu
             {
                 if (selectedOption != MenuOption.Logout)
                 {
-                    Console.WriteLine($"--- {UserContext.GetInstance().Username} ---");
+                    Console.WriteLine($"--- {UserContext.GetInstance().LoginId} ---");
                 }
                 _menus[selectedOption].Run();
             }

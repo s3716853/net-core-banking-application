@@ -4,8 +4,8 @@ public sealed class UserContext
 {
     private static UserContext _instance;
 
-    public string Username { get; set; } = "";
-    public string Password { get; set; } = "";
+    public string LoginId { get; set; } = "";
+    public int CustomerId { get; set; } = 0;
 
     private UserContext() { }
 

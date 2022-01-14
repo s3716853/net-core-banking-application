@@ -22,12 +22,8 @@ internal class LoginMenu : IConsoleMenu
 
             UserContext userContext = UserContext.GetInstance();
 
-            if (LoginService.Verify(loginId, password))
+            if (LoginService.Login(loginId, password))
             {
-                // A verified password will never have a null loginid 
-                #pragma warning disable CS8601 // Possible null reference assignment.
-                userContext.Username = loginId;
-                userContext.Password = password;
                 loggedIn = true;
             }
         }
