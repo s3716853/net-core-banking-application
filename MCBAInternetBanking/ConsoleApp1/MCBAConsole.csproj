@@ -11,4 +11,8 @@
     <ProjectReference Include="..\RequestManagement\MCBABackend.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+
 </Project>
