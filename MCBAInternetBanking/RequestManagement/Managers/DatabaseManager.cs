@@ -76,11 +76,10 @@ public static class DatabaseManager
     /// 
     public static void Withdraw(Account account, decimal amount, string? comment)
     {
-        if (account.Transactions.Count > 2 && account.Balance > amount + Constants.WithdrawTransactionFee || 
+        if (account.Transactions.Count >= 2 && account.Balance > amount + Constants.WithdrawTransactionFee || 
             account.Transactions.Count < 2 && account.Balance > amount)
         {
             account.Balance -= amount;
-            _accountManager.Update(account);
             _transactionManager.Insert(new Transaction()
             {
                 TransactionType = (char)TransactionType.Withdraw,
@@ -89,6 +88,19 @@ public static class DatabaseManager
                 Comment = comment,
                 TransactionTimeUtc = DateTime.Now.ToUniversalTime()
             });
+            if (account.Transactions.Count >= 2)
+            {
+                account.Balance -= Constants.WithdrawTransactionFee;
+                _transactionManager.Insert(new Transaction()
+                {
+                    TransactionType = (char)TransactionType.Withdraw,
+                    AccountNumber = account.AccountNumber,
+                    Amount = Constants.WithdrawTransactionFee,
+                    Comment = Constants.WithdrawFeeComment,
+                    TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+                });
+            }
+            _accountManager.Update(account);
         }
         else
         {
