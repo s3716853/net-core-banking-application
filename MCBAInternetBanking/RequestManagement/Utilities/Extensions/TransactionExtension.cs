@@ -17,7 +17,7 @@ public static class TransactionExtension
             $"DestinationAccountNumber={transaction.DestinationAccountNumber}",
             $"Amount={transaction.Amount}",
             $"Comment={transaction.Comment}",
-            $"TransactionTimeUtc={transaction.TransactionTimeUtc}",
+            $"TransactionTimeUtc={transaction.TransactionTimeUtc.ToLocalTime().ToShortDateString()}",
         }).ToString();
     }
 }
