@@ -90,7 +90,7 @@ public static class DatabaseManager
                 account.Balance -= Constants.WithdrawTransactionFee;
                 _transactionManager.Insert(new Transaction()
                 {
-                    TransactionType = (char)TransactionType.Withdraw,
+                    TransactionType = (char)TransactionType.Service,
                     AccountNumber = account.AccountNumber,
                     Amount = Constants.WithdrawTransactionFee,
                     Comment = Constants.WithdrawFeeComment,
@@ -138,7 +138,7 @@ public static class DatabaseManager
                 accountFrom.Balance -= Constants.TransferTransactionFee;
                 _transactionManager.Insert(new Transaction()
                 {
-                    TransactionType = (char)TransactionType.Transfer,
+                    TransactionType = (char)TransactionType.Service,
                     AccountNumber = accountFrom.AccountNumber,
                     Amount = Constants.TransferTransactionFee,
                     Comment = Constants.TransferFeeComment,

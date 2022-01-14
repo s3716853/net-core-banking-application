@@ -3,7 +3,8 @@ public enum TransactionType
 {
     Deposit = 'D',
     Transfer = 'T',
-    Withdraw = 'W'
+    Withdraw = 'W',
+    Service = 'S'
 }
 
 public class Constants
