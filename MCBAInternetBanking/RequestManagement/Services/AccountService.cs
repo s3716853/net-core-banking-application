@@ -12,7 +12,7 @@ public class AccountService
         return DatabaseManager.RetrieveUserAccounts(UserContext.GetInstance().CustomerId);
     }
 
-    public static Account? RetrieveAccount(int accountNumber)
+    public static Account? RetrieveAccount(string accountNumber)
     {
         return DatabaseManager.RetrieveAccount(accountNumber);
     }

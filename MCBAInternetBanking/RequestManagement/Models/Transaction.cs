@@ -12,11 +12,13 @@ public class Transaction
     public TransactionType TransactionType { get; set; }
 
     [ForeignKey(nameof(Account))]
-    public string AccountNumber { get; set; }
+    public string OriginAccountNumber { get; set; }
+    public Account Origin { get; set; }
 
     [ForeignKey(nameof(Account))]
-    public int? DestinationAccountNumber { get; set; }
-    
+    public string? DestinationAccountNumber { get; set; }
+    public Account? Destination { get; set; }
+
     [Column(TypeName = "money")]
     [DataType(DataType.Currency)]
     [DecimalGreaterThanZero]

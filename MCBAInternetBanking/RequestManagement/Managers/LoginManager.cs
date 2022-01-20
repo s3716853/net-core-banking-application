@@ -41,7 +41,7 @@ public class LoginManager : ILoginManager
         // Only a single
         Login[] logins = command.GetDataTable().Select().Select(dataRow => new Login()
         {
-            CustomerID = dataRow.Field<int>("CustomerID"),
+            CustomerID = dataRow.Field<string>("CustomerID"),
             // LoginID and PasswordHash will never be null on a returned Login
             LoginID = dataRow.Field<string>("LoginID"),
             PasswordHash = dataRow.Field<string>("PasswordHash")

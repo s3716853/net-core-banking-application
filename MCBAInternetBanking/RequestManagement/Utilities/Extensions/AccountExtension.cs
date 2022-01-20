@@ -18,7 +18,6 @@ public static class AccountExtension
         {
             $"AccountNumber={account.AccountNumber}",
             $"AccountType={account.AccountType}",
-            $"Balance={account.Balance}",
             $"CustomerID={account.CustomerID}",
             "-Transactions-",
             transactionStrings

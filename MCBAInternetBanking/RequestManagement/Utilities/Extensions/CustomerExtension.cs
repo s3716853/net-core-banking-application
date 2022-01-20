@@ -19,8 +19,8 @@ public static class CustomerExtension
         {
             $"CustomerID={customer.CustomerID}",
             $"Name={customer.Name}",
-            $"Address={customer.Address}",
-            $"City={customer.City}",
+            // $"Address={customer.Address}",
+            // $"City={customer.City}",
             $"PostCode={customer.PostCode}",
             "-Login-",
             $"{customer.Login.AsString().TrimEnd()}",

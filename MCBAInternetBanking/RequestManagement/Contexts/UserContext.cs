@@ -5,7 +5,7 @@ public sealed class UserContext
     private static UserContext _instance;
 
     public string LoginId { get; set; } = "";
-    public int CustomerId { get; set; } = 0;
+    public string CustomerId { get; set; } = "";
 
     private UserContext() { }
 

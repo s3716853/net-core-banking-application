@@ -21,5 +21,7 @@ public class Account
     
     [ForeignKey(nameof(Customer))]
     public string CustomerID { get; set; }
-    public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+    
+    [InverseProperty(nameof(Transaction.Origin))] // Specifying WHICH foreign key within transaction this list maps to
+    public virtual List<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

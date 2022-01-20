@@ -22,9 +22,9 @@ public class TransactionManager : ITransactionManager
         connection.Open();
 
         using var command = connection.CreateCommand();
-        command.CommandText = "insert into [Transaction] (TransactionType, AccountNumber, DestinationAccountNumber, Amount, Comment, TransactionTimeUtc) values (@transactionType, @accountNumber, @destinationAccountNumber, @amount, @comment, @transactionTimeUtc)";
+        command.CommandText = "insert into [Transaction] (TransactionType, OriginAccountNumber, DestinationAccountNumber, Amount, Comment, TransactionTimeUtc) values (@transactionType, @accountNumber, @destinationAccountNumber, @amount, @comment, @transactionTimeUtc)";
         command.Parameters.AddWithValue("transactionType", transaction.TransactionType);
-        command.Parameters.AddWithValue("accountNumber", transaction.AccountNumber);
+        command.Parameters.AddWithValue("accountNumber", transaction.OriginAccountNumber);
         command.Parameters.AddWithValue("destinationAccountNumber", transaction.DestinationAccountNumber.GetObjectOrDbNull());
         command.Parameters.AddWithValue("amount", transaction.Amount);
         command.Parameters.AddWithValue("comment", transaction.Comment.GetObjectOrDbNull());
