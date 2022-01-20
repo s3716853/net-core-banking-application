@@ -20,6 +20,6 @@ public class Account
     // public decimal Balance { get; set; }
     
     [ForeignKey(nameof(Customer))]
-    public int CustomerID { get; set; }
+    public string CustomerID { get; set; }
     public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 }
