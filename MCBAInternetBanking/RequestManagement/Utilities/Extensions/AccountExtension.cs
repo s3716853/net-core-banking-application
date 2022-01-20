@@ -16,7 +16,7 @@ public static class AccountExtension
         });
         return new StringBuilder().AppendArray(new string[]
         {
-            $"AccountNumber={account.AccountNumber}",
+            $"OriginAccountNumber={account.AccountNumber}",
             $"AccountType={account.AccountType}",
             $"CustomerID={account.CustomerID}",
             "-Transactions-",

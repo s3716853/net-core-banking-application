@@ -60,7 +60,7 @@ public static class DatabaseManager
         // _transactionManager.Insert(new Transaction()
         // {
         //     TransactionType = (char) TransactionType.Deposit,
-        //     AccountNumber = account.AccountNumber,
+        //     OriginAccountNumber = account.OriginAccountNumber,
         //     Amount = amount,
         //     Comment = comment,
         //     TransactionTimeUtc = DateTime.Now.ToUniversalTime()
@@ -80,7 +80,7 @@ public static class DatabaseManager
         //     _transactionManager.Insert(new Transaction()
         //     {
         //         TransactionType = (char)TransactionType.Withdraw,
-        //         AccountNumber = account.AccountNumber,
+        //         OriginAccountNumber = account.OriginAccountNumber,
         //         Amount = amount,
         //         Comment = comment,
         //         TransactionTimeUtc = DateTime.Now.ToUniversalTime()
@@ -91,7 +91,7 @@ public static class DatabaseManager
         //         _transactionManager.Insert(new Transaction()
         //         {
         //             TransactionType = (char)TransactionType.Service,
-        //             AccountNumber = account.AccountNumber,
+        //             OriginAccountNumber = account.OriginAccountNumber,
         //             Amount = Constants.WithdrawTransactionFee,
         //             Comment = Constants.WithdrawFeeComment,
         //             TransactionTimeUtc = DateTime.Now.ToUniversalTime()
@@ -116,8 +116,8 @@ public static class DatabaseManager
         //     _transactionManager.Insert(new Transaction()
         //     {
         //         TransactionType = (char)TransactionType.Transfer,
-        //         AccountNumber = accountFrom.AccountNumber,
-        //         DestinationAccountNumber = accountTo.AccountNumber,
+        //         OriginAccountNumber = accountFrom.OriginAccountNumber,
+        //         DestinationAccountNumber = accountTo.OriginAccountNumber,
         //         Amount = amount,
         //         Comment = comment,
         //         TransactionTimeUtc = DateTime.Now.ToUniversalTime()
@@ -126,7 +126,7 @@ public static class DatabaseManager
         //     _transactionManager.Insert(new Transaction()
         //     {
         //         TransactionType = (char)TransactionType.Transfer,
-        //         AccountNumber = accountTo.AccountNumber,
+        //         OriginAccountNumber = accountTo.OriginAccountNumber,
         //         Amount = amount,
         //         Comment = comment,
         //         TransactionTimeUtc = DateTime.Now.ToUniversalTime()
@@ -139,7 +139,7 @@ public static class DatabaseManager
         //         _transactionManager.Insert(new Transaction()
         //         {
         //             TransactionType = (char)TransactionType.Service,
-        //             AccountNumber = accountFrom.AccountNumber,
+        //             OriginAccountNumber = accountFrom.OriginAccountNumber,
         //             Amount = Constants.TransferTransactionFee,
         //             Comment = Constants.TransferFeeComment,
         //             TransactionTimeUtc = DateTime.Now.ToUniversalTime()

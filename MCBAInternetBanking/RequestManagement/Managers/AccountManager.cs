@@ -22,8 +22,8 @@ public class AccountManager : IAccountManager
         // connection.Open();
         //
         // using var command = connection.CreateCommand();
-        // command.CommandText = "insert into Account (AccountNumber, AccountType, CustomerID, Balance) values (@accountNumber, @accountType, @customerID, @balance)";
-        // command.Parameters.AddWithValue("accountNumber", account.AccountNumber);
+        // command.CommandText = "insert into Account (OriginAccountNumber, AccountType, CustomerID, Balance) values (@accountNumber, @accountType, @customerID, @balance)";
+        // command.Parameters.AddWithValue("accountNumber", account.OriginAccountNumber);
         // command.Parameters.AddWithValue("accountType", account.AccountType);
         // command.Parameters.AddWithValue("customerID", account.CustomerID);
         // command.Parameters.AddWithValue("balance", account.Balance);
@@ -37,7 +37,7 @@ public class AccountManager : IAccountManager
         // using var command = connection.CreateCommand();
         // command.CommandText = @"SELECT * FROM Account 
         //     LEFT JOIN [Transaction] 
-        //     ON Account.AccountNumber = [Transaction].[AccountNumber]
+        //     ON Account.OriginAccountNumber = [Transaction].[OriginAccountNumber]
         //     WHERE Account.CustomerId = @customerId";
         // command.Parameters.AddWithValue("customerId", customerId);
         //
@@ -49,17 +49,17 @@ public class AccountManager : IAccountManager
         //     // Each row in the table could have the information for a previous account
         //     // As one account can have many transactions
         //     // and trhe SQL command returns the Account joined with each Transations as a row
-        //     if (!accountToId.TryGetValue(dataRow.Field<int>(nameof(Account.AccountNumber)), out account))
+        //     if (!accountToId.TryGetValue(dataRow.Field<int>(nameof(Account.OriginAccountNumber)), out account))
         //     {
         //         account = new Account()
         //         {
-        //             AccountNumber = dataRow.Field<int>(nameof(Account.AccountNumber)),
+        //             OriginAccountNumber = dataRow.Field<int>(nameof(Account.OriginAccountNumber)),
         //             AccountType = char.Parse(dataRow.Field<string?>(nameof(Account.AccountType))),
         //             Balance = dataRow.Field<decimal>(nameof(Account.Balance)),
         //             CustomerID = dataRow.Field<int>(nameof(Account.CustomerID)),
         //             Transactions = new List<Transaction>()
         //         };
-        //         accountToId.Add(dataRow.Field<int>(nameof(Account.AccountNumber)), account);
+        //         accountToId.Add(dataRow.Field<int>(nameof(Account.OriginAccountNumber)), account);
         //     }
         //
         //     // Some Account can have no transactions due to SQL left join
@@ -69,7 +69,7 @@ public class AccountManager : IAccountManager
         //             {
         //                 TransactionID = dataRow.Field<int>(nameof(Transaction.TransactionID)),
         //                 TransactionType = char.Parse(dataRow.Field<string?>(nameof(Transaction.TransactionType))),
-        //                 AccountNumber = dataRow.Field<int>(nameof(Transaction.AccountNumber)),
+        //                 OriginAccountNumber = dataRow.Field<int>(nameof(Transaction.OriginAccountNumber)),
         //                 DestinationAccountNumber = dataRow.Field<int?>(nameof(Transaction.DestinationAccountNumber)),
         //                 Amount = dataRow.Field<decimal>(nameof(Transaction.Amount)),
         //                 Comment = dataRow.Field<string?>(nameof(Transaction.Comment)),
@@ -88,14 +88,14 @@ public class AccountManager : IAccountManager
         // connection.Open();
         //
         // using var command = connection.CreateCommand();
-        // // I'm assuming that I won't ever need to update an Account to change the AccountNumber, CustomerId
+        // // I'm assuming that I won't ever need to update an Account to change the OriginAccountNumber, CustomerId
         // command.CommandText = @"
         //     UPDATE Account
         //     SET AccountType = @accountType, Balance = @balance
-        //     WHERE AccountNumber = @accountNumber";
+        //     WHERE OriginAccountNumber = @accountNumber";
         // command.Parameters.AddWithValue("accountType", account.AccountType);
         // command.Parameters.AddWithValue("balance", account.Balance);
-        // command.Parameters.AddWithValue("accountNumber", account.AccountNumber);
+        // command.Parameters.AddWithValue("accountNumber", account.OriginAccountNumber);
         //
         // command.ExecuteNonQuery();
     }
@@ -108,8 +108,8 @@ public class AccountManager : IAccountManager
         // command.CommandText =
         //     @"SELECT * FROM Account 
         //     LEFT JOIN [Transaction] 
-        //     ON Account.AccountNumber = [Transaction].[AccountNumber]
-        //     WHERE Account.AccountNumber = @accountNumber;";
+        //     ON Account.OriginAccountNumber = [Transaction].[OriginAccountNumber]
+        //     WHERE Account.OriginAccountNumber = @accountNumber;";
         // command.Parameters.AddWithValue("accountNumber", accountNumber);
         //
         // Account? account = null;
@@ -120,7 +120,7 @@ public class AccountManager : IAccountManager
         //     {
         //         account = new Account()
         //         {
-        //             AccountNumber = dataRow.Field<int>(nameof(Account.AccountNumber)),
+        //             OriginAccountNumber = dataRow.Field<int>(nameof(Account.OriginAccountNumber)),
         //             AccountType = char.Parse(dataRow.Field<string?>(nameof(Account.AccountType))),
         //             Balance = dataRow.Field<decimal>(nameof(Account.Balance)),
         //             CustomerID = dataRow.Field<int>(nameof(Account.CustomerID)),
@@ -133,7 +133,7 @@ public class AccountManager : IAccountManager
         //         account.Transactions.Add(new Transaction()
         //         {
         //             TransactionType = char.Parse(dataRow.Field<string?>(nameof(Transaction.TransactionType))),
-        //             AccountNumber = dataRow.Field<int>(nameof(Transaction.AccountNumber)),
+        //             OriginAccountNumber = dataRow.Field<int>(nameof(Transaction.OriginAccountNumber)),
         //             DestinationAccountNumber = dataRow.Field<int?>(nameof(Transaction.DestinationAccountNumber)),
         //             Amount = dataRow.Field<decimal>(nameof(Transaction.Amount)),
         //             Comment = dataRow.Field<string?>(nameof(Transaction.Comment)),
