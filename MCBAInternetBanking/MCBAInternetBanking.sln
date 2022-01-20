@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCBAConsole", "ConsoleApp1\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCBABackend", "RequestManagement\MCBABackend.csproj", "{E5DDD197-9C70-4D46-B972-BDC935A3A944}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCBAWebApplication", "MCBAWebApplication\MCBAWebApplication.csproj", "{18F92721-564A-4FA7-8E8D-0C80CCB0D62C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCBAWebApplication", "MCBAWebApplication\MCBAWebApplication.csproj", "{18F92721-564A-4FA7-8E8D-0C80CCB0D62C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

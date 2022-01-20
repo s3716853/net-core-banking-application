@@ -35,10 +35,10 @@ public static class DataInitialiseService
                 account.Transactions.ForEach(transaction =>
                 {
                     // All initial Transactions are deposit
-                    transaction.TransactionType = (char) TransactionType.Deposit;
-                    account.Balance += transaction.Amount;
+                    transaction.TransactionType = TransactionType.Deposit;
+                    // account.Balance += transaction.Amount;
 
-                    transaction.AccountNumber = account.AccountNumber;
+                    transaction.OriginAccountNumber = account.AccountNumber;
 
                 });
             });

@@ -19,9 +19,11 @@ public static class CustomerExtension
         {
             $"CustomerID={customer.CustomerID}",
             $"Name={customer.Name}",
-            $"Address={customer.Address}",
-            $"City={customer.City}",
+            $"TFN={customer.TFN}",
+            $"Suburb={customer.Suburb}",
+            $"State={customer.State}",
             $"PostCode={customer.PostCode}",
+            $"Mobile={customer.Mobile}",
             "-Login-",
             $"{customer.Login.AsString().TrimEnd()}",
             "-Accounts-",

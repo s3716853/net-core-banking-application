@@ -1,7 +1,17 @@
+using MCBABackend.Contexts;
+using MCBABackend.Managers;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add services to the container.
+builder.Services.AddDbContext<McbaContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Database"), b => b.MigrationsAssembly(nameof(MCBAWebApplication)));
+});
 
 var app = builder.Build();
 

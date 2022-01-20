@@ -13,7 +13,7 @@ public static class TransactionExtension
         {
             $"TransactionId={transaction.TransactionID}",
             $"TransactionType={transaction.TransactionType}",
-            $"AccountNumber={transaction.AccountNumber}",
+            $"OriginAccountNumber={transaction.OriginAccountNumber}",
             $"DestinationAccountNumber={transaction.DestinationAccountNumber}",
             $"Amount={transaction.Amount}",
             $"Comment={transaction.Comment}",
