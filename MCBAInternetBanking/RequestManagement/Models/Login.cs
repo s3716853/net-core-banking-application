@@ -10,7 +10,7 @@ public class Login
     public string LoginID { get; set; }
 
     [ForeignKey(nameof(Customer))]
-    public int CustomerID { get; set; }
+    public string CustomerID { get; set; }
 
     public string PasswordHash { get; set; }
 }
