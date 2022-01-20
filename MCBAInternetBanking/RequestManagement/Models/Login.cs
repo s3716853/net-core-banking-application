@@ -1,7 +1,16 @@
-﻿namespace MCBABackend.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MCBABackend.Models;
 public class Login
 {
-    public int CustomerID { get; set; }
+    [Key]
+    [StringLength(8, MinimumLength = 8)]
+    [RegularExpression("^\\d+")] //Only allow digit
     public string LoginID { get; set; }
+
+    [ForeignKey(nameof(Customer))]
+    public int CustomerID { get; set; }
+
     public string PasswordHash { get; set; }
 }
