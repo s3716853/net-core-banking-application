@@ -12,7 +12,7 @@ public class Transaction
     public TransactionType TransactionType { get; set; }
 
     [ForeignKey(nameof(Account))]
-    public int AccountNumber { get; set; }
+    public string AccountNumber { get; set; }
 
     [ForeignKey(nameof(Account))]
     public int? DestinationAccountNumber { get; set; }
