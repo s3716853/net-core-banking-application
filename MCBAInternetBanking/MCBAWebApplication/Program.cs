@@ -1,16 +1,17 @@
-using MCBABackend.Contexts;
-using MCBABackend.Managers;
+using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add services to the container.
-builder.Services.AddDbContext<McbaContext>(options =>
+// Configuring CustomerApi
+builder.Services.AddHttpClient(Options.DefaultName, client =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Database"), b => b.MigrationsAssembly(nameof(MCBAWebApplication)));
+    client.BaseAddress = new Uri(builder.Configuration.GetConnectionString("CustomerApi"));
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
 var app = builder.Build();
