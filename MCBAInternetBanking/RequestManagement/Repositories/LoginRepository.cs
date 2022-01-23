@@ -20,4 +20,9 @@ public class LoginRepository : DataRepository<Login, string>
         return await _context.Login.
             FirstOrDefaultAsync(login => login.LoginID == id);
     }
+
+    public async Task<Login?> GetByCustomerId(string customerId)
+    {
+        return await _context.Login.FirstOrDefaultAsync(login => login.CustomerID == customerId);
+    }
 }
