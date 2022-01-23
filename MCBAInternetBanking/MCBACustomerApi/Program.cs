@@ -1,5 +1,5 @@
 using MCBABackend.Contexts;
-using MCBABackend.Managers;
+using MCBABackend.Services;
 using MCBACustomerApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,5 +36,21 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Time to seed the data from the web service
+// Initialise DB
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        DataInitialiseService.RetrieveAndSave(scope.ServiceProvider, builder.Configuration.GetConnectionString("DatabaseInit"));
+    }
+    catch (Exception ex)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB.");
+    }
+}
+
 
 app.Run();

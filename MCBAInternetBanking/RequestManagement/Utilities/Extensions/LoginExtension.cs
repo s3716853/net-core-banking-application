@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using MCBABackend.Models;
+using MCBABackend.Models.Dto;
 
 namespace MCBABackend.Utilities.Extensions;
 public static class LoginExtension
@@ -11,9 +12,19 @@ public static class LoginExtension
     {
         return new StringBuilder().AppendArray(new string[]
         {
-            $"CustomerID={login.CustomerID}",
-            $"LoginID={login.LoginID}",
-            $"PasswordHash={login.PasswordHash}"
+            $"  CustomerID={login.CustomerID}",
+            $"  LoginID={login.LoginID}",
+            $"  PasswordHash={login.PasswordHash}"
         }).ToString();
+    }
+
+    public static Login ToLogin(this LoginDto dto, string customerId)
+    {
+        return new Login()
+        {
+            LoginID = dto.LoginID,
+            PasswordHash = dto.PasswordHash,
+            CustomerID = customerId
+        };
     }
 }

@@ -11,11 +11,14 @@ public class Customer
     [RegularExpression("^\\d+", ErrorMessage = "CustomerID only accepts digits")] //Only allow digit
     public string CustomerID { get; set; }
 
-    [StringLength(50, MinimumLength = 1)]// Don't want to allow ""
+    [StringLength(50, MinimumLength = 1)] // Don't want to allow ""
     public string Name { get; set; } 
 
     [MaxLength(11)]
     public string? TFN { get; set; }
+
+    [StringLength(50, MinimumLength = 1)]
+    public string? Address { get; set; }
 
     [StringLength(40, MinimumLength = 1)]
     public string? Suburb { get; set; }
@@ -32,7 +35,7 @@ public class Customer
     [RegularExpression("^04\\d{2} \\d{3} \\d{3}$", ErrorMessage = "Must follow 04XX XXX XXX format")]
     public string? Mobile { get; set; }
 
-    public List<Account> Accounts { get; set; } = new List<Account>();
+    public virtual List<Account> Accounts { get; set; } = new List<Account>();
     
-    public Login Login { get; set; }
+    public virtual Login Login { get; set; }
 }

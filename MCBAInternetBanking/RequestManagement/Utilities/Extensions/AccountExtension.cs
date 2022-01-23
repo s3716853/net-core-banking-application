@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using MCBABackend.Models;
+using MCBABackend.Models.Dto;
 
 namespace MCBABackend.Utilities.Extensions;
 public static class AccountExtension
@@ -16,10 +17,10 @@ public static class AccountExtension
         });
         return new StringBuilder().AppendArray(new string[]
         {
-            $"OriginAccountNumber={account.AccountNumber}",
-            $"AccountType={account.AccountType}",
-            $"CustomerID={account.CustomerID}",
-            "-Transactions-",
+            $"  AccountNumber={account.AccountNumber}",
+            $"  AccountType={account.AccountType}",
+            $"  CustomerID={account.CustomerID}",
+            "   -Transactions-",
             transactionStrings
         }).ToString();
     }
@@ -27,5 +28,21 @@ public static class AccountExtension
     public static bool HasFreeTransactions(this Account account)
     {
         return account.Transactions.Count < 2;
+    }
+
+    public static Account ToAccount(this AccountDto dto)
+    {
+        List<Transaction> transactions = new List<Transaction>();
+        dto.Transactions.ForEach(transactionDto =>
+        {
+            transactions.Add(transactionDto.ToTransaction(dto.AccountNumber));
+        });
+        return new Account()
+        {
+            AccountNumber = dto.AccountNumber,
+            AccountType = dto.AccountType.ToAccountType(),
+            CustomerID = dto.CustomerID,
+            Transactions = transactions
+        };
     }
 }

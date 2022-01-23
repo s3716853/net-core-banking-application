@@ -13,11 +13,11 @@ public class Transaction
 
     [ForeignKey(nameof(Account))]
     public string OriginAccountNumber { get; set; }
-    public Account Origin { get; set; }
+    public virtual Account? Origin { get; set; }
 
     [ForeignKey(nameof(Account))]
     public string? DestinationAccountNumber { get; set; }
-    public Account? Destination { get; set; }
+    public virtual Account? Destination { get; set; }
 
     [Column(TypeName = "money")]
     [DataType(DataType.Currency)]

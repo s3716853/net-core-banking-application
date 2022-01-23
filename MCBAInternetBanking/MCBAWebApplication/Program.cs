@@ -1,5 +1,4 @@
 using System.Net.Http.Headers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);

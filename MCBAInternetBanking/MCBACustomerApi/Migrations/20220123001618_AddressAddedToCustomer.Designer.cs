@@ -4,6 +4,7 @@ using MCBABackend.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MCBAWebApplication.Migrations
 {
     [DbContext(typeof(McbaContext))]
-    partial class McbaContextModelSnapshot : ModelSnapshot
+    [Migration("20220123001618_AddressAddedToCustomer")]
+    partial class AddressAddedToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace MCBAWebApplication.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("Account", (string)null);
+                    b.ToTable("Account");
                 });
 
             modelBuilder.Entity("MCBABackend.Models.Customer", b =>
@@ -78,7 +80,7 @@ namespace MCBAWebApplication.Migrations
 
                     b.HasKey("CustomerID");
 
-                    b.ToTable("Customer", (string)null);
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("MCBABackend.Models.Login", b =>
@@ -101,7 +103,7 @@ namespace MCBAWebApplication.Migrations
                     b.HasIndex("CustomerID")
                         .IsUnique();
 
-                    b.ToTable("Login", (string)null);
+                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("MCBABackend.Models.Transaction", b =>
@@ -138,7 +140,7 @@ namespace MCBAWebApplication.Migrations
 
                     b.HasIndex("OriginAccountNumber");
 
-                    b.ToTable("Transaction", (string)null);
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("MCBABackend.Models.Account", b =>
