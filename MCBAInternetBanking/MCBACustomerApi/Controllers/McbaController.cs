@@ -1,8 +1,5 @@
-using MCBABackend.Models;
 using MCBACustomerApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
-using Microsoft.OpenApi.Any;
 
 namespace MCBACustomerApi.Controllers;
 

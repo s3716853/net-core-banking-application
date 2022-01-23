@@ -11,7 +11,7 @@ public class Login
 
     [ForeignKey(nameof(Customer))]
     public string CustomerID { get; set; }
-    public Customer Customer { get; set; }
+    public Customer? Customer { get; set; }
 
     [StringLength(64)]
     public string PasswordHash { get; set; }

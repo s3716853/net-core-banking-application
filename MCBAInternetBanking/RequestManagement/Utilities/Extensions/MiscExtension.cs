@@ -31,5 +31,74 @@ public static class MiscExtension
 
         return null;
     }
+
+    /// <summary>
+    /// Returns the string converted to a TransactionType
+    /// </summary>
+    /// <param name="typeString">String to convert</param>
+    /// <returns>Returns null if the string does not represent TransactionType, otherwise the matching TransactionType</returns>
+    public static TransactionType? ToNullableTransactionType(this string typeString)
+    {
+        switch (typeString)
+        {
+            case "D":
+                return TransactionType.Deposit;
+            case "T":
+                return TransactionType.Transfer;
+            case "W":
+                return TransactionType.Withdraw;
+            case "S":
+                return TransactionType.Service;
+            case "B":
+                return TransactionType.BillPay;
+            default:
+                return null;
+        }
+    }
+
+    /// <summary>
+    /// Like ToNullableTransactionType but instead of returning null the call defaults to returning TransactionType.Deposit
+    /// and has no way of telling if the string actually converted to it.
+    ///
+    /// Used where you can guarentee the string is an TransactionType and you cant have nullable
+    /// </summary>
+    /// <param name="typeString">String to convert</param>
+    /// <returns>Returns TransactionType.Deposit if the string does not represent TransactionType, otherwise the matching TransactionType</returns>
+    public static TransactionType ToTransactionType(this string typeString)
+    {
+        return typeString.ToNullableTransactionType() ?? TransactionType.Deposit;
+    }
+
+    /// <summary>
+    /// Returns the string converted to a AccountType
+    /// </summary>
+    /// <param name="typeString">String to convert</param>
+    /// <returns>Returns null if the string does not represent AccountType, otherwise the matching AccountType</returns>
+    public static AccountType? ToNullableAccountType(this string typeString)
+    {
+        switch (typeString)
+        {
+            case "S":
+                return AccountType.Savings;
+            case "C":
+                return AccountType.Checking;
+            default:
+                return null;
+        }
+    }
+
+    /// <summary>
+    /// Like ToNullableAccountType but instead of returning null the call defaults to returning AccountType.Checking
+    /// and has no way of telling if the string actually converted to it.
+    ///
+    /// Used where you can guarentee the string is an accountype and you cant have nullable
+    /// </summary>
+    /// <param name="typeString">String to convert</param>
+    /// <returns>Returns AccountType.Checking if the string does not represent AccountType, otherwise the matching AccountType</returns>
+    public static AccountType ToAccountType(this string typeString)
+    {
+        return typeString.ToNullableAccountType() ?? AccountType.Checking;
+    }
+
 }
 

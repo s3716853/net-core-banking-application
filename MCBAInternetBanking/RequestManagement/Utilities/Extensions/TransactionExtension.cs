@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using MCBABackend.Models;
+using MCBABackend.Models.Dto;
 
 namespace MCBABackend.Utilities.Extensions;
 public static class TransactionExtension
@@ -11,13 +12,26 @@ public static class TransactionExtension
     {
         return new StringBuilder().AppendArray(new string[]
         {
-            $"TransactionId={transaction.TransactionID}",
-            $"TransactionType={transaction.TransactionType}",
-            $"OriginAccountNumber={transaction.OriginAccountNumber}",
-            $"DestinationAccountNumber={transaction.DestinationAccountNumber}",
-            $"Amount={transaction.Amount}",
-            $"Comment={transaction.Comment}",
-            $"TransactionTimeUtc={transaction.TransactionTimeUtc.ToLocalTime().ToShortDateString()}",
+            $"      TransactionId={transaction.TransactionID}",
+            $"      TransactionType={transaction.TransactionType}",
+            $"      OriginAccountNumber={transaction.OriginAccountNumber}",
+            $"      DestinationAccountNumber={transaction.DestinationAccountNumber}",
+            $"      Amount={transaction.Amount}",
+            $"      Comment={transaction.Comment}",
+            $"      TransactionTimeUtc={transaction.TransactionTimeUtc.ToLocalTime()}",
         }).ToString();
+    }
+
+    public static Transaction ToTransaction(this TransactionDto dto, string accountNumber)
+    {
+        return new Transaction()
+        {
+            TransactionID = default, // The model has the id as non-nullable, however the database will ignore this when adding as it handles creating transactionIds
+            TransactionType = dto.TransactionType,
+            OriginAccountNumber = accountNumber,
+            Amount = dto.Amount,
+            Comment = dto.Comment,
+            TransactionTimeUtc = dto.TransactionTimeUtc
+        };
     }
 }

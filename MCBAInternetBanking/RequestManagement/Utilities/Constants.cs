@@ -1,17 +1,17 @@
 ﻿namespace MCBABackend.Utilities;
 public enum TransactionType
 {
-    Deposit = 'D',
-    Transfer = 'T',
-    Withdraw = 'W',
-    Service = 'S',
-    BillPay = 'B'
+    Deposit,
+    Transfer,
+    Withdraw,
+    Service,
+    BillPay
 }
 
 public enum AccountType
 {
-    Savings = 'S',
-    Checking = 'C'
+    Savings,
+    Checking
 }
 
 public enum States
