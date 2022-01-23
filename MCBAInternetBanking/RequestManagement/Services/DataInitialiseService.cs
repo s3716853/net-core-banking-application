@@ -3,13 +3,19 @@ using MCBABackend.Models;
 using MCBABackend.Models.Dto;
 using MCBABackend.Utilities.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace MCBABackend.Services;
 public static class DataInitialiseService
 {
-    public static void RetrieveAndSave(IServiceProvider serviceProvider, string url)
+    public static void Start(IServiceProvider serviceProvider, string url)
     {
+        using McbaContext mcbaContext = serviceProvider.GetRequiredService<McbaContext>();
+
+        if (mcbaContext.Customer.Any()) return; // We have a database so no need to prefill!
+        Console.WriteLine("Database empty, running prefill commands");
+
         List<Customer> customers = new List<Customer>();
 
         Retrieve(url)?.ForEach(customerDto =>
@@ -17,16 +23,8 @@ public static class DataInitialiseService
             customers.Add(customerDto.ToCustomer());
         });
 
-        customers.ForEach(customer =>
-        {
-            Console.WriteLine(customer.AsString());
-        });
-
-        using var dbContext = serviceProvider.GetRequiredService<McbaContext>();
-
-        if (dbContext.Customer.Any()) return;
-
-        Console.WriteLine("nothing in db");
+        mcbaContext.Customer.AddRange(customers);
+        mcbaContext.SaveChanges();
     }
     private static List<CustomerDto>? Retrieve(string url)
     {
@@ -40,26 +38,6 @@ public static class DataInitialiseService
             DateFormatString = "dd/MM/yyyy hh:mm:ss tt"
         });
 
-        // customers?.ForEach((customer) =>
-        // {
-        //     // Going to fields in objects related to Customer and filling fields which are not (explicitly)
-        //     // returned by the web service
-        //     customer.Login.CustomerID = customer.CustomerID;
-        //
-        //     customer.Accounts.ForEach(account =>
-        //     {
-        //         account.CustomerID = customer.CustomerID;
-        //         account.Transactions.ForEach(transaction =>
-        //         {
-        //             // All initial Transactions are deposit
-        //             transaction.TransactionType = TransactionType.Deposit;
-        //             // account.Balance += transaction.Amount;
-        //
-        //             transaction.OriginAccountNumber = account.AccountNumber;
-        //
-        //         });
-        //     });
-        // });
         return customers;
     }
 }

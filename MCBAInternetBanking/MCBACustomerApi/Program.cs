@@ -43,7 +43,7 @@ using (var scope = app.Services.CreateScope())
 {
     try
     {
-        DataInitialiseService.RetrieveAndSave(scope.ServiceProvider, builder.Configuration.GetConnectionString("DatabaseInit"));
+        DataInitialiseService.Start(scope.ServiceProvider, builder.Configuration.GetConnectionString("DatabaseInit"));
     }
     catch (Exception ex)
     {

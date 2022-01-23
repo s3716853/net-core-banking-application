@@ -26,7 +26,7 @@ public static class TransactionExtension
     {
         return new Transaction()
         {
-            TransactionID = default,
+            TransactionID = default, // The model has the id as non-nullable, however the database will ignore this when adding as it handles creating transactionIds
             TransactionType = dto.TransactionType,
             OriginAccountNumber = accountNumber,
             Amount = dto.Amount,
