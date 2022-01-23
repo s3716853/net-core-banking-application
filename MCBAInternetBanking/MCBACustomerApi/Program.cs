@@ -1,6 +1,7 @@
+using Newtonsoft.Json;
 using MCBABackend.Contexts;
+using MCBABackend.Repositories;
 using MCBABackend.Services;
-using MCBACustomerApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

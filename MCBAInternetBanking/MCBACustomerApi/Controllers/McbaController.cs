@@ -1,4 +1,5 @@
-using MCBACustomerApi.Repositories;
+using MCBABackend.Models;
+using MCBABackend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MCBACustomerApi.Controllers;
@@ -23,16 +24,15 @@ public abstract class McbaController<TModelEntity, TModelRepository, TModelEntit
     }
 
     [HttpGet]
-    public IEnumerable<TModelEntity> Get()
+    public Task<List<TModelEntity>> GetAllAsync()
     {
-        _logger.LogInformation($"{typeof(TModelEntity)} Controller Get All");
         return _repo.GetAll();
     }
 
-    [HttpGet("{key}")]
-    public TModelEntity? Get(TModelEntityKeyType key)
+    [HttpGet]
+    [Route("{key}")]
+    public Task<TModelEntity?> GetAsync(TModelEntityKeyType key)
     {
-        _logger.LogInformation($"{typeof(TModelEntity)} Controller Get KEY={key}");
         return _repo.Get(key);
     }
 }
