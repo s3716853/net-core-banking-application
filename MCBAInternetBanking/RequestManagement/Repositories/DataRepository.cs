@@ -1,6 +1,7 @@
 ﻿using MCBABackend.Contexts;
+using MCBABackend.Models;
 
-namespace MCBACustomerApi.Repositories;
+namespace MCBABackend.Repositories;
 
 public abstract class DataRepository<TEntity, TKey> where TEntity : class
 {
@@ -11,6 +12,6 @@ public abstract class DataRepository<TEntity, TKey> where TEntity : class
         _context = context;
     }
 
-    public abstract IEnumerable<TEntity> GetAll();
-    public abstract TEntity? Get(TKey id);
+    public abstract Task<List<TEntity>> GetAll();
+    public abstract Task<TEntity?> Get(TKey id);
 }

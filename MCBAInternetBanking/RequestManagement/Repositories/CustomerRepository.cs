@@ -2,7 +2,7 @@
 using MCBABackend.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MCBACustomerApi.Repositories;
+namespace MCBABackend.Repositories;
 
 public class CustomerRepository : DataRepository<Customer, string>
 {
@@ -10,14 +10,19 @@ public class CustomerRepository : DataRepository<Customer, string>
     {
     }
 
-    public override IEnumerable<Customer> GetAll()
+    public override async Task<List<Customer>> GetAll()
     {
-        return _context.Customer.ToList();
+        return await _context.Customer.
+            Include(customer => customer.Login).
+            Include(customer => customer.Accounts).ToListAsync();
     }
 
-    public override Customer? Get(string id)
+    public override async Task<Customer?> Get(string id)
     {
-        return _context.Customer.Find(id);
+        return await _context.Customer.
+            Include(customer => customer.Login).
+            Include(customer => customer.Accounts).
+            FirstOrDefaultAsync(customer => customer.CustomerID == id);
     }
 
     public string Add(Customer customer, Login login)

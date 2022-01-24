@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using MCBABackend.Models.Validators;
 using MCBABackend.Utilities;
 
@@ -13,10 +14,14 @@ public class Transaction
 
     [ForeignKey(nameof(Account))]
     public string OriginAccountNumber { get; set; }
+
+    [JsonIgnore]
     public virtual Account? Origin { get; set; }
 
     [ForeignKey(nameof(Account))]
     public string? DestinationAccountNumber { get; set; }
+
+    [JsonIgnore]
     public virtual Account? Destination { get; set; }
 
     [Column(TypeName = "money")]

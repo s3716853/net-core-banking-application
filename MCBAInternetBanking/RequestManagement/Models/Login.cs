@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MCBABackend.Models;
 public class Login
@@ -11,6 +12,8 @@ public class Login
 
     [ForeignKey(nameof(Customer))]
     public string CustomerID { get; set; }
+
+    [JsonIgnore]
     public Customer? Customer { get; set; }
 
     [StringLength(64)]
