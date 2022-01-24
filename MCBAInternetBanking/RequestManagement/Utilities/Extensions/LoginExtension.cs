@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using MCBABackend.Models;
 using MCBABackend.Models.Dto;
+using SimpleHashing;
 
 namespace MCBABackend.Utilities.Extensions;
 public static class LoginExtension
@@ -16,6 +17,11 @@ public static class LoginExtension
             $"  LoginID={login.LoginID}",
             $"  PasswordHash={login.PasswordHash}"
         }).ToString();
+    }
+
+    public static bool Verify(this Login login, string password)
+    {
+        return PBKDF2.Verify(login.PasswordHash, password);
     }
 
     public static Login ToLogin(this LoginDto dto, string customerId)

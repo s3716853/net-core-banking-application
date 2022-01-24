@@ -13,6 +13,15 @@ builder.Services.AddHttpClient(Options.DefaultName, client =>
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
+// Add this so the views can access it! This gives the HTTP Content (sessions are in there)
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSession(options =>
+{
+    // Make the session cookie essential.
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,10 +34,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
