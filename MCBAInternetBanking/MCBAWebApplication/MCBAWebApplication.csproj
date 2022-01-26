@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModel\**" />
+    <Content Remove="ViewModel\**" />
+    <EmbeddedResource Remove="ViewModel\**" />
+    <None Remove="ViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
@@ -18,10 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RequestManagement\MCBABackend.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
 </Project>
