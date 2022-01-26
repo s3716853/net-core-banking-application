@@ -1,6 +1,6 @@
-﻿using System.Text;
-using MCBABackend.Models;
+﻿using MCBABackend.Models;
 using MCBABackend.Models.Dto;
+using System.Text;
 
 namespace MCBABackend.Utilities.Extensions;
 public static class AccountExtension
@@ -44,5 +44,41 @@ public static class AccountExtension
             CustomerID = dto.CustomerID,
             Transactions = transactions
         };
+    }
+
+    public static decimal Balance(this Account account)
+    {
+        decimal balance = 0;
+
+        account.Transactions.ForEach(transaction =>
+        {
+            switch (transaction.TransactionType)
+            {
+                case TransactionType.BillPay:
+                case TransactionType.Service:
+                case TransactionType.Withdraw:
+                    balance -= transaction.Amount;
+                    break;
+                case TransactionType.Deposit:
+                    balance += transaction.Amount;
+                    break;
+                case TransactionType.Transfer:
+                    if (transaction.DestinationAccountNumber != null) // No destinationAccount = they ARE the destination account
+                    {
+                        balance += transaction.Amount;
+                    }
+                    else
+                    {
+                        balance -= transaction.Amount;
+                    }
+                    break;
+                default:
+                    // If any new types are added this warning should break the code if this code is never updated
+                    throw new ArgumentException(
+                        "A transaction has a new TransactionType not handled by Account.Balance()");
+            }
+        });
+
+        return balance;
     }
 }

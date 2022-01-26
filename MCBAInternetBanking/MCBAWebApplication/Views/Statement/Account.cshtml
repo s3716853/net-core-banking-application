@@ -1,0 +1,47 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "My Statements";
+}
+
+<div class="text-center">
+    <table class="table">
+        <thead>@Model!.AccountNumber</thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].DestinationAccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].TransactionTimeUtc)
+            </th>
+        </tr>
+        @for (int i = 0; i < Model.Transactions.Count; ++i)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(account => account.Transactions[i].Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(account => account.Transactions[i].TransactionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(account => account.Transactions[i].DestinationAccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(account => account.Transactions[i].Comment)
+                </td>
+                <td>
+                    @Model.Transactions[i].TransactionTimeUtc.ToLocalTime().ToString();
+                </td>
+            </tr>
+        }
+    </table>
+</div>
