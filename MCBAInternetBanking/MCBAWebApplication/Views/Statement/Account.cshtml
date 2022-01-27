@@ -1,0 +1,56 @@
+﻿@using X.PagedList.Mvc.Core
+@using System.Globalization
+@using X.PagedList.Web.Common
+@model X.PagedList.IPagedList<Transaction>
+@{
+    ViewData["Title"] = "My Statements";
+}
+
+<div class="text-center">
+    <table class="table">
+        <thead>@ViewBag.AccountNumber</thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].DestinationAccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].TransactionTimeUtc)
+            </th>
+        </tr>
+        @foreach(var transaction in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(transactions => transaction.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(transactions => transaction.TransactionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(transactions => transaction.DestinationAccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(transactions => transaction.Comment)
+                </td>
+                <td>
+                    @transaction.TransactionTimeUtc.ToLocalTime().ToString(CultureInfo.CurrentUICulture)
+                </td>
+            </tr>
+        }
+    </table>
+    
+    @Html.PagedListPager(Model, page => Url.Action("Account", new { page }), 
+        new PagedListRenderOptions {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+</div>

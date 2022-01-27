@@ -1,0 +1,18 @@
+﻿@model List<Account>
+@{
+    ViewData["Title"] = "My Statements";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Accounts</h1>
+    <ul>
+        @foreach (Account account in Model)
+        {
+            <li>
+                <a asp-controller="Statement" asp-action="Account" asp-route-id="@account.AccountNumber">@account.AccountNumber</a>
+                -
+                <span>@account.Balance().ToString("C")</span>
+            </li>
+        }
+    </ul>
+</div>

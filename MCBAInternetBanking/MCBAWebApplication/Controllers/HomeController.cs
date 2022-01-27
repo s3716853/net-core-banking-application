@@ -1,32 +1,25 @@
 ﻿using MCBAWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using MCBABackend.Models;
 
-namespace MCBAWebApplication.Controllers
+namespace MCBAWebApplication.Controllers;
+
+public class HomeController : McbaController
 {
-    public class HomeController : Controller
+    public HomeController(ILogger<HomeController> logger, IServiceProvider serviceProvider, IConfiguration configuration) : base(logger, serviceProvider, configuration)
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
+
+    public IActionResult Index()
+    {
+        return RedirectToAction("Index", "Statement"); ;
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
 }
