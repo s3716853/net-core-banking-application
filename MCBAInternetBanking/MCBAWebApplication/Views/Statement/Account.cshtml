@@ -42,14 +42,15 @@
                     @Html.DisplayFor(transactions => transaction.Comment)
                 </td>
                 <td>
-                    @transaction.TransactionTimeUtc.ToLocalTime().ToString(CultureInfo.CurrentUICulture);
+                    @transaction.TransactionTimeUtc.ToLocalTime().ToString(CultureInfo.CurrentUICulture)
                 </td>
             </tr>
         }
-        @Html.PagedListPager(Model, page => Url.Action("Account", new { page }), 
-            new PagedListRenderOptions {
-                LiElementClasses = new[] { "page-item" },
-                PageClasses = new[] { "page-link" }
-            })
     </table>
+    
+    @Html.PagedListPager(Model, page => Url.Action("Account", new { page }), 
+        new PagedListRenderOptions {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
 </div>

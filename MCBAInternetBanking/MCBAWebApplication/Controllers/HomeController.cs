@@ -13,7 +13,7 @@ public class HomeController : McbaController
 
     public IActionResult Index()
     {
-        return View();
+        return RedirectToAction("Index", "Statement"); ;
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
