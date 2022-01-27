@@ -1,6 +1,8 @@
 ﻿using MCBABackend.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using X.PagedList;
 
 namespace MCBAWebApplication.Controllers;
 
@@ -23,19 +25,27 @@ public class StatementController : McbaController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Account(string id)
+    public async Task<IActionResult> Account(string id, int page = 1)
     {
-        _logger.LogInformation($"GET: Statement/{id}");
-        Account? account = await QueryCustomerApi<Account>($"{_connectionString}/Account/{id}");
-        if (account != null)
+        _logger.LogInformation($"GET: Statement/{id}?page={page}");
+
+        List<Transaction>? transactions =
+            await QueryCustomerApi<List<Transaction>>(
+                $"{_connectionString}/Transaction/Account/{id}");
+
+        if (transactions != null)
         {
-            account.Transactions = account.Transactions.OrderByDescending(transaction => transaction.TransactionTimeUtc).ToList();
-            return View(account);
+            ViewBag.AccountNumber = id;
+            const int pageSize = 4;
+            var transactionsPaged = await transactions.OrderByDescending(transaction => transaction.TransactionID)
+                .ToPagedListAsync(page, pageSize);
+            return View(transactionsPaged);
         }
         else
         {
             return RedirectToAction("Index");
         }
+
     }
 }
 

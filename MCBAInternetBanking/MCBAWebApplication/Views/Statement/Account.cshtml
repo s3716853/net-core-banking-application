@@ -1,47 +1,55 @@
-﻿@model Account
+﻿@using X.PagedList.Mvc.Core
+@using System.Globalization
+@using X.PagedList.Web.Common
+@model X.PagedList.IPagedList<Transaction>
 @{
     ViewData["Title"] = "My Statements";
 }
 
 <div class="text-center">
     <table class="table">
-        <thead>@Model!.AccountNumber</thead>
+        <thead>@ViewBag.AccountNumber</thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Transactions[0].Amount)
+                @Html.DisplayNameFor(model => model[0].Amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transactions[0].TransactionType)
+                @Html.DisplayNameFor(model => model[0].TransactionType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transactions[0].DestinationAccountNumber)
+                @Html.DisplayNameFor(model => model[0].DestinationAccountNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transactions[0].Comment)
+                @Html.DisplayNameFor(model => model[0].Comment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transactions[0].TransactionTimeUtc)
+                @Html.DisplayNameFor(model => model[0].TransactionTimeUtc)
             </th>
         </tr>
-        @for (int i = 0; i < Model.Transactions.Count; ++i)
+        @foreach(var transaction in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(account => account.Transactions[i].Amount)
+                    @Html.DisplayFor(transactions => transaction.Amount)
                 </td>
                 <td>
-                    @Html.DisplayFor(account => account.Transactions[i].TransactionType)
+                    @Html.DisplayFor(transactions => transaction.TransactionType)
                 </td>
                 <td>
-                    @Html.DisplayFor(account => account.Transactions[i].DestinationAccountNumber)
+                    @Html.DisplayFor(transactions => transaction.DestinationAccountNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(account => account.Transactions[i].Comment)
+                    @Html.DisplayFor(transactions => transaction.Comment)
                 </td>
                 <td>
-                    @Model.Transactions[i].TransactionTimeUtc.ToLocalTime().ToString();
+                    @transaction.TransactionTimeUtc.ToLocalTime().ToString(CultureInfo.CurrentUICulture);
                 </td>
             </tr>
         }
+        @Html.PagedListPager(Model, page => Url.Action("Account", new { page }), 
+            new PagedListRenderOptions {
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" }
+            })
     </table>
 </div>
