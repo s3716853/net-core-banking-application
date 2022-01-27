@@ -27,7 +27,27 @@ public static class AccountExtension
 
     public static bool HasFreeTransactions(this Account account)
     {
-        return account.Transactions.Count < 2;
+        int usedCount = 0;
+        const int maxFreeTransaction = 2;
+
+        foreach (Transaction accountTransaction in account.Transactions)
+        {
+            switch (accountTransaction.TransactionType)
+            {
+                case TransactionType.Withdraw:
+                    ++usedCount;
+                    break;
+                case TransactionType.Transfer:
+                    if (accountTransaction.DestinationAccountNumber != null) ++usedCount;
+                    break;
+                case TransactionType.Deposit:
+                case TransactionType.Service:
+                case TransactionType.BillPay:
+                default:
+                    break;
+            }
+        }
+        return usedCount < maxFreeTransaction;
     }
 
     public static Account ToAccount(this AccountDto dto)
