@@ -1,10 +1,8 @@
-﻿using MCBABackend.Models;
-using MCBABackend.Utilities.Extensions;
-using MCBAWebApplication.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
+﻿using System.Diagnostics;
+using MCBABackend.Models;
+using MCBAWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Build.ObjectModelRemoting;
 using Newtonsoft.Json;
 
 namespace MCBAWebApplication.Controllers;
@@ -47,6 +45,12 @@ public abstract class McbaController : Controller
         // If the user is logged in this method should never return null (account definetly exists)
         return (await QueryCustomerApi<Customer>(
             $"{_connectionString}/Customer/{HttpContext.Session.GetString(nameof(Customer.CustomerID))}"))!;
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
 
