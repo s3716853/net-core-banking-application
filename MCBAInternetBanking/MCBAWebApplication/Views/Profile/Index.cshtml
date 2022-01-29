@@ -1,0 +1,7 @@
+﻿@model ProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+@await Html.PartialAsync("_CustomerForm", Model.ProfileCustomerViewModel)
+@await Html.PartialAsync("_LoginForm", Model.ProfileLoginViewModel);
