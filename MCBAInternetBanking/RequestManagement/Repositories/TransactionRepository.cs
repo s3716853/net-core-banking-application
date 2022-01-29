@@ -40,6 +40,20 @@ public class TransactionRepository : DataRepository<Transaction, int>
             .ToListAsync();
     }
 
+    public async Task Deposit(Transaction entity)
+    {
+        DateTime transactionTime = DateTime.Now.ToUniversalTime();
+        Account? account = await _context.Account.Include(account => account.Transactions)
+            .FirstOrDefaultAsync(account => account.AccountNumber == entity.OriginAccountNumber);
+
+        if (account != null)
+        {
+            entity.TransactionTimeUtc = transactionTime;
+            await Add(entity);
+        }
+
+    }
+
     public async Task Withdraw(Transaction entity)
     {
         DateTime transactionTime = DateTime.Now.ToUniversalTime();

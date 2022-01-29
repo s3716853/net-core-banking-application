@@ -44,13 +44,11 @@ public class DepositController : McbaController
         await CheckViewModel(depositWithdrawViewModel);
         if (!ModelState.IsValid) return View("Index", depositWithdrawViewModel);
 
-        await PutQueryCustomerApi($"{_connectionString}/Transaction", new Transaction()
+        await PutQueryCustomerApi($"{_connectionString}/Transaction/Deposit", new
         {
-            Comment = depositWithdrawViewModel.Comment,
-            Amount = depositWithdrawViewModel.Amount,
-            OriginAccountNumber = depositWithdrawViewModel.Account,
-            TransactionType = TransactionType.Deposit,
-            TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+            accountNumber = depositWithdrawViewModel.Account,
+            comment = depositWithdrawViewModel.Comment,
+            amount = depositWithdrawViewModel.Amount
         });
 
         return RedirectToAction("Index", "Statement");
