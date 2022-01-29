@@ -25,9 +25,10 @@ public class CustomerRepository : DataRepository<Customer, string>
             FirstOrDefaultAsync(customer => customer.CustomerID == id);
     }
 
-    public override Task<int> Add(Customer entity)
+    public override async Task Add(Customer entity)
     {
-        throw new NotImplementedException();
+        await _context.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
     public string Add(Customer customer, Login login)

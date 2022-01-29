@@ -25,14 +25,16 @@ public class AccountRepository : DataRepository<Account, string>
             FirstOrDefaultAsync(account => account.AccountNumber == id);
     }
 
-    public override Task<int> Add(Account entity)
+    public override async Task Add(Account entity)
     {
-        throw new NotImplementedException();
+        await _context.Account.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
-    public override Task Update(Account entity)
+    public override async Task Update(Account entity)
     {
-        throw new NotImplementedException();
+        _context.Account.Update(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<List<Account>> GetByCustomerId(string customerId)

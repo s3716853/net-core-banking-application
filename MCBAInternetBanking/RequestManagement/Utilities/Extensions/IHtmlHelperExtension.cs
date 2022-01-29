@@ -29,4 +29,12 @@ public static class IHtmlHelperExtension
             .AppendHtml(htmlHelper.TextBoxFor(expression, new { @class = "form-control" }))
             .AppendHtml(htmlHelper.ValidationMessageFor(expression, null, new { @class = "text-danger" }));
     }
+
+    public static IHtmlContent McbaPassword<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
+    {
+        return new HtmlContentBuilder()
+            .AppendHtml(htmlHelper.LabelFor(expression, htmlHelper.DisplayNameFor(expression)))
+            .AppendHtml(htmlHelper.PasswordFor(expression, new { @class = "form-control" }))
+            .AppendHtml(htmlHelper.ValidationMessageFor(expression, null, new { @class = "text-danger" }));
+    }
 }

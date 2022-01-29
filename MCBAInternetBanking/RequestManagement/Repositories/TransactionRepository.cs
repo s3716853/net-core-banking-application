@@ -29,9 +29,10 @@ public class TransactionRepository : DataRepository<Transaction, int>
         return await _context.SaveChangesAsync();
     }
 
-    public override Task Update(Transaction entity)
+    public override async Task Update(Transaction entity)
     {
-        throw new NotImplementedException();
+        _context.Transaction.Update(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<List<Transaction>> GetByAccountNumber(string accountNumber)
