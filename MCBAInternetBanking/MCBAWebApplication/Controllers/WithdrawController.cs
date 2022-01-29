@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using MCBABackend.Models;
+﻿using MCBABackend.Models;
 using MCBABackend.Utilities;
 using MCBAWebApplication.Models.ViewModels;
 using MCBAWebApplication.Utilities;
@@ -7,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MCBAWebApplication.Controllers;
 
-public class DepositController : McbaController
+public class WithdrawController : McbaController
 {
-    public DepositController(ILogger<DepositController> logger, IServiceProvider serviceProvider, IConfiguration configuration) : base(logger, serviceProvider, configuration)
+    public WithdrawController(ILogger<DepositController> logger, IServiceProvider serviceProvider, IConfiguration configuration) : base(logger, serviceProvider, configuration)
     {
     }
     public async Task<IActionResult> Index()
     {
-        _logger.LogInformation("GET: Deposit/");
+        _logger.LogInformation("GET: Withdraw/");
         ViewBag.AccountList = await GetAccountList();
         return View();
     }
@@ -23,7 +22,7 @@ public class DepositController : McbaController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Confirm([FromForm] DepositWithdrawViewModel depositWithdrawViewModel)
     {
-        _logger.LogInformation("POST: Deposit/Confirm");
+        _logger.LogInformation("POST: Withdraw/Confirm");
 
         ViewBag.AccountList = await GetAccountList();
         await CheckViewModel(depositWithdrawViewModel);
@@ -39,18 +38,16 @@ public class DepositController : McbaController
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Complete([FromForm] DepositWithdrawViewModel depositWithdrawViewModel){
-        _logger.LogInformation("POST: Deposit/Complete");
+        _logger.LogInformation("POST: Withdraw/Complete");
         
         await CheckViewModel(depositWithdrawViewModel);
         if (!ModelState.IsValid) return View("Index", depositWithdrawViewModel);
 
-        await PutQueryCustomerApi($"{_connectionString}/Transaction", new Transaction()
+        await PutQueryCustomerApi($"{_connectionString}/Transaction/Withdraw", new
         {
-            Comment = depositWithdrawViewModel.Comment,
-            Amount = depositWithdrawViewModel.Amount,
-            OriginAccountNumber = depositWithdrawViewModel.Account,
-            TransactionType = TransactionType.Deposit,
-            TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+            comment = depositWithdrawViewModel.Comment,
+            amount = depositWithdrawViewModel.Amount,
+            accountNumber = depositWithdrawViewModel.Account,
         });
 
         return RedirectToAction("Index", "Statement");
@@ -67,7 +64,7 @@ public class DepositController : McbaController
             }
             else
             {
-                BankActionValidation.Deposit(ModelState, account, depositWithdrawViewModel.Amount);
+                BankActionValidation.Withdraw(ModelState, account, depositWithdrawViewModel.Amount);
             }
         }
     }

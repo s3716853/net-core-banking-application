@@ -47,7 +47,7 @@ public static class AccountExtension
                     break;
             }
         }
-        return usedCount < maxFreeTransaction;
+        return usedCount <= maxFreeTransaction;
     }
 
     public static Account ToAccount(this AccountDto dto)

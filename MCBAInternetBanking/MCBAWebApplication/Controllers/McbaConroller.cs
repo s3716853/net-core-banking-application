@@ -43,7 +43,6 @@ public abstract class McbaController : Controller
     protected async Task<HttpResponseMessage> PutQueryCustomerApi(string connectionString, object objectToSend)
     {
         HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();
-
         return await httpClient?.PutAsJsonAsync(new Uri(connectionString), objectToSend)!;
     }
 
