@@ -1,7 +1,8 @@
 using MCBABackend.Models;
 using MCBABackend.Repositories;
+using MCBABackend.Utilities;
+using MCBACustomerApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 
 namespace MCBACustomerApi.Controllers;
 
@@ -19,5 +20,20 @@ public class TransactionController : McbaController<Transaction, TransactionRepo
     public async Task<List<Transaction>> GetByAccountNumber(string accountNumber)
     {
         return await _repo.GetByAccountNumber(accountNumber);
+    }
+
+    [HttpPut]
+    [Route("Withdraw")]
+    public async Task<StatusCodeResult> Withdraw(ControllerInputs.WithdrawInput input)
+    {
+        await _repo.Withdraw(new Transaction()
+        {
+            Amount = input.amount,
+            Comment = input.comment,
+            OriginAccountNumber = input.accountNumber,
+            TransactionType = TransactionType.Withdraw,
+            TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+        });
+        return StatusCode(200);
     }
 }

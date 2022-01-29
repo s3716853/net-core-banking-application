@@ -1,9 +1,7 @@
 ﻿using MCBABackend.Contexts;
 using MCBABackend.Models;
-using MCBABackend.Utilities;
+using MCBABackend.Utilities.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using X.PagedList;
 
 namespace MCBABackend.Repositories;
 
@@ -39,5 +37,29 @@ public class TransactionRepository : DataRepository<Transaction, int>
     {
         return await _context.Transaction.Where(transaction => transaction.OriginAccountNumber == accountNumber)
             .ToListAsync();
+    }
+
+    public async Task Withdraw(Transaction entity)
+    {
+        Account? account = await _context.Account.
+            Include(account => account.Transactions).
+            FirstOrDefaultAsync(account => account.AccountNumber == entity.OriginAccountNumber);
+            
+        if (account != null)
+        {
+            await Add(entity);
+            if (!account.HasFreeTransactions())
+            {
+                // If no free transactions then time to charge
+                await Add(new Transaction()
+                {
+                    Amount = MCBABackend.Utilities.Constants.WithdrawTransactionFee,
+                    Comment = MCBABackend.Utilities.Constants.WithdrawFeeComment,
+                    OriginAccountNumber = account.AccountNumber,
+                    TransactionTimeUtc = DateTime.Now.ToUniversalTime(),
+                    TransactionType = MCBABackend.Utilities.TransactionType.Service
+                });
+            }
+        }
     }
 }

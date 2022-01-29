@@ -1,4 +1,7 @@
-﻿namespace MCBABackend.Utilities;
+﻿using System.Security.Cryptography;
+using JetBrains.Annotations;
+
+namespace MCBABackend.Utilities;
 public enum TransactionType
 {
     Deposit,
@@ -25,7 +28,7 @@ public enum States
     Nsw
 }
 
-public class Constants
+public static class Constants
 {
     public static readonly decimal WithdrawTransactionFee = new decimal(0.05);
     public static readonly decimal TransferTransactionFee = new decimal(0.10);
@@ -35,5 +38,11 @@ public class Constants
     public static readonly decimal MinCheckingOpeningBalance = new decimal(500);
     public static readonly decimal MinSavingsBalance = new decimal(0);
     public static readonly decimal MinCheckingBalance = new decimal(300);
+    public static readonly Dictionary<AccountType, decimal> MinBalances = new Dictionary<AccountType, decimal>()
+    {
+        { AccountType.Checking, MinCheckingBalance }, 
+        { AccountType.Savings, MinSavingsBalance }
+    };
+
     public static readonly int FreeTransactionAmount = 2;
 }

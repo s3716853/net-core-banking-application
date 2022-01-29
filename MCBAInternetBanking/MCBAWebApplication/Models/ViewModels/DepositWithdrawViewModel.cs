@@ -3,7 +3,7 @@ using MCBABackend.Models;
 using MCBABackend.Models.Validators;
 
 namespace MCBAWebApplication.Models.ViewModels;
-public class DepositViewModel
+public class DepositWithdrawViewModel
 {
     [DataType(DataType.Currency)]
     [DecimalGreaterThanZero]

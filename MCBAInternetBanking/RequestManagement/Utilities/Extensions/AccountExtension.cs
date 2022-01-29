@@ -28,7 +28,6 @@ public static class AccountExtension
     public static bool HasFreeTransactions(this Account account)
     {
         int usedCount = 0;
-        const int maxFreeTransaction = 2;
 
         foreach (Transaction accountTransaction in account.Transactions)
         {
@@ -47,7 +46,7 @@ public static class AccountExtension
                     break;
             }
         }
-        return usedCount < maxFreeTransaction;
+        return usedCount <= Constants.FreeTransactionAmount;
     }
 
     public static Account ToAccount(this AccountDto dto)
