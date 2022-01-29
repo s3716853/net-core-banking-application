@@ -82,7 +82,7 @@ public static class AccountExtension
                     balance += transaction.Amount;
                     break;
                 case TransactionType.Transfer:
-                    if (transaction.DestinationAccountNumber != null) // No destinationAccount = they ARE the destination account
+                    if (transaction.DestinationAccountNumber == null || transaction.DestinationAccountNumber == "") // No destinationAccount = they ARE the destination account
                     {
                         balance += transaction.Amount;
                     }

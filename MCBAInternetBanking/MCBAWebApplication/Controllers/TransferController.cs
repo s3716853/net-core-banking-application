@@ -1,10 +1,7 @@
-﻿using JetBrains.Annotations;
-using MCBABackend.Models;
-using MCBABackend.Utilities;
+﻿using MCBABackend.Models;
 using MCBAWebApplication.Models.ViewModels;
 using MCBAWebApplication.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Diagnostics.Telemetry;
 
 namespace MCBAWebApplication.Controllers;
 
@@ -24,7 +21,7 @@ public class TransferController : McbaController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Confirm([FromForm] TransferViewModel transferViewModel)
     {
-        _logger.LogInformation("POST: Deposit/Confirm");
+        _logger.LogInformation("POST: Transfer/Confirm");
         await CheckViewModel(transferViewModel);
         ViewBag.AccountList = await GetAccountList();
         if (!ModelState.IsValid)
@@ -39,19 +36,18 @@ public class TransferController : McbaController
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Complete([FromForm] TransferViewModel transferViewModel){
-        _logger.LogInformation("POST: Deposit/Complete");
+        _logger.LogInformation("POST: Transfer/Complete");
         
         await CheckViewModel(transferViewModel);
         if (!ModelState.IsValid) return View("Index", transferViewModel);
-        //
-        // await PutQueryCustomerApi($"{_connectionString}/Transaction", new Transaction()
-        // {
-        //     Comment = transferViewModel.Comment,
-        //     Amount = transferViewModel.Amount,
-        //     OriginAccountNumber = transferViewModel.Account,
-        //     TransactionType = TransactionType.Deposit,
-        //     TransactionTimeUtc = DateTime.Now.ToUniversalTime()
-        // });
+        
+        await PutQueryCustomerApi($"{_connectionString}/Transaction/Transfer", new
+        {
+            comment = transferViewModel.Comment,
+            amount = transferViewModel.Amount,
+            originAccountNumber = transferViewModel.OriginAccount,
+            destinationAccountNumber = transferViewModel.DestinationAccount
+        });
 
         return RedirectToAction("Index", "Statement");
     }
