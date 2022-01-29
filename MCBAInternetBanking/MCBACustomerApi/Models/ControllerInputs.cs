@@ -9,5 +9,12 @@ public class ControllerInputs
         public string comment { get; set; }
         public decimal amount { get; set; }
     }
+    public class TransferInput
+    {
+        public string originAccountNumber { get; set; }
+        public string destinationAccountNumber { get; set; }
+        public string comment { get; set; }
+        public decimal amount { get; set; }
+    }
 }
 

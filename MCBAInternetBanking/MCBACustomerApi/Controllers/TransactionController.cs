@@ -36,4 +36,20 @@ public class TransactionController : McbaController<Transaction, TransactionRepo
         });
         return StatusCode(200);
     }
+
+    [HttpPut]
+    [Route("Transfer")]
+    public async Task<StatusCodeResult> Transfer(ControllerInputs.TransferInput input)
+    {
+        await _repo.Transfer(new Transaction()
+        {
+            Amount = input.amount,
+            Comment = input.comment,
+            OriginAccountNumber = input.originAccountNumber,
+            DestinationAccountNumber = input.destinationAccountNumber,
+            TransactionType = TransactionType.Transfer,
+            TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+        });
+        return StatusCode(200);
+    }
 }

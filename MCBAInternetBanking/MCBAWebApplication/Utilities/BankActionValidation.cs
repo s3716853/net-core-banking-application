@@ -21,5 +21,18 @@ namespace MCBAWebApplication.Utilities
             }
         }
 
+        public static void Transfer(ModelStateDictionary modelState, Account accountOrigin, decimal amount, string customerId)
+        {
+            if (accountOrigin.CustomerID != customerId)
+            {
+                modelState.AddModelError("", "You can only transfer from an account you own");
+            }
+
+            if (accountOrigin.Balance() - amount < Constants.MinBalances[accountOrigin.AccountType])
+            {
+                modelState.AddModelError("", $"{accountOrigin.AccountType} accounts cannot go below ${Constants.MinBalances[accountOrigin.AccountType]}");
+            }
+        }
+
     }
 }
