@@ -62,7 +62,7 @@ public class ProfileController : McbaController
                 ProfileCustomerViewModel = profileCustomerViewModel
             });
 
-        
+        await PostQueryCustomerApi($"{_connectionString}/Customer", profileCustomerViewModel);
 
         return RedirectToAction("Index");
     }
@@ -79,7 +79,9 @@ public class ProfileController : McbaController
                 ProfileLoginViewModel = profileLoginViewModelViewModel,
                 ProfileCustomerViewModel = null
             });
-        _logger.LogInformation("NO MODEL ERROR IN Login");
+
+        await PostQueryCustomerApi($"{_connectionString}/Login", profileLoginViewModelViewModel);
+
         return RedirectToAction("Index");
     }
 
