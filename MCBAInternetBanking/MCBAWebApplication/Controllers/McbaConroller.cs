@@ -46,6 +46,12 @@ public abstract class McbaController : Controller
         return await httpClient?.PutAsJsonAsync(new Uri(connectionString), objectToSend)!;
     }
 
+    protected async Task<HttpResponseMessage> PostQueryCustomerApi(string connectionString, object objectToSend)
+    {
+        HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();
+        return await httpClient?.PostAsJsonAsync(new Uri(connectionString), objectToSend)!;
+    }
+
     protected async Task<Customer> GetLoggedInCustomer()
     {
         // If the user is logged in this method should never return null (account definetly exists)

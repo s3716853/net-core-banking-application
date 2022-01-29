@@ -61,7 +61,9 @@ public class ProfileController : McbaController
                 ProfileLoginViewModel = null,
                 ProfileCustomerViewModel = profileCustomerViewModel
             });
-        _logger.LogInformation("NO MODEL ERROR IN Customer");
+
+        
+
         return RedirectToAction("Index");
     }
 

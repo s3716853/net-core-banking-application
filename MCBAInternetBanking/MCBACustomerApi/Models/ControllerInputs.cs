@@ -1,4 +1,6 @@
-﻿namespace MCBACustomerApi.Models;
+﻿using MCBABackend.Utilities;
+
+namespace MCBACustomerApi.Models;
 
 public class ControllerInputs
 {
@@ -15,6 +17,25 @@ public class ControllerInputs
         public string destinationAccountNumber { get; set; }
         public string comment { get; set; }
         public decimal amount { get; set; }
+    }
+
+    public class LoginUpdateInput
+    {
+        public string customerID { get; set; }
+        public string passwordNew { get; set; }
+        public string passwordOld { get; set; }
+    }
+
+    public class CustomerUpdateInput
+    {
+        public string CustomerID { get; set; }
+        public string Name { get; set; }
+        public string? TFN { get; set; }
+        public string? Address { get; set; }
+        public string? Suburb { get; set; }
+        public States? State { get; set; }
+        public string? PostCode { get; set; }
+        public string? Mobile { get; set; }
     }
 }
 
