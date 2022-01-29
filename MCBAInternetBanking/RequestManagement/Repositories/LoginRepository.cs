@@ -21,6 +21,16 @@ public class LoginRepository : DataRepository<Login, string>
             FirstOrDefaultAsync(login => login.LoginID == id);
     }
 
+    public override Task<int> Add(Login entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Task Update(Login entity)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<Login?> GetByCustomerId(string customerId)
     {
         return await _context.Login.FirstOrDefaultAsync(login => login.CustomerID == customerId);

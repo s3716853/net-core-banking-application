@@ -1,10 +1,8 @@
-﻿using MCBABackend.Models;
-using MCBABackend.Utilities.Extensions;
-using MCBAWebApplication.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
+﻿using System.Diagnostics;
+using MCBABackend.Models;
+using MCBAWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Build.ObjectModelRemoting;
 using Newtonsoft.Json;
 
 namespace MCBAWebApplication.Controllers;
@@ -31,7 +29,7 @@ public abstract class McbaController : Controller
         base.OnActionExecuting(ctx);
     }
 
-    protected async Task<T?> QueryCustomerApi<T>(string connectionString)
+    protected async Task<T?> GetQueryCustomerApi<T>(string connectionString)
     {
         HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();
 
@@ -42,11 +40,24 @@ public abstract class McbaController : Controller
         return JsonConvert.DeserializeObject<T>(response);
     }
 
+    protected async Task<HttpResponseMessage> PutQueryCustomerApi(string connectionString, object objectToSend)
+    {
+        HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();
+
+        return await httpClient?.PutAsJsonAsync(new Uri(connectionString), objectToSend)!;
+    }
+
     protected async Task<Customer> GetLoggedInCustomer()
     {
         // If the user is logged in this method should never return null (account definetly exists)
-        return (await QueryCustomerApi<Customer>(
+        return (await GetQueryCustomerApi<Customer>(
             $"{_connectionString}/Customer/{HttpContext.Session.GetString(nameof(Customer.CustomerID))}"))!;
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
 

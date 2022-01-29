@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using MCBABackend.Contexts;
 using MCBABackend.Models;
+using MCBABackend.Utilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MCBABackend.Repositories;
 
@@ -21,6 +23,16 @@ public class AccountRepository : DataRepository<Account, string>
         return await _context.Account.
             Include(account => account.Transactions).
             FirstOrDefaultAsync(account => account.AccountNumber == id);
+    }
+
+    public override Task<int> Add(Account entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Task Update(Account entity)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<List<Account>> GetByCustomerId(string customerId)
