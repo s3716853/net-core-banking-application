@@ -19,7 +19,7 @@ public class StatementController : McbaController
         // the parent class checks if logged in before every action, so this will never be null here
         string? customerId = HttpContext.Session.GetString(nameof(Customer.CustomerID));
 
-        List<Account>? accounts = await QueryCustomerApi<List<Account>>($"{_connectionString}/Account/Customer/{customerId}");
+        List<Account>? accounts = await GetQueryCustomerApi<List<Account>>($"{_connectionString}/Account/Customer/{customerId}");
 
         return View(accounts);
     }
@@ -30,7 +30,7 @@ public class StatementController : McbaController
         _logger.LogInformation($"GET: Statement/{id}?page={page}");
 
         List<Transaction>? transactions =
-            await QueryCustomerApi<List<Transaction>>(
+            await GetQueryCustomerApi<List<Transaction>>(
                 $"{_connectionString}/Transaction/Account/{id}");
 
         if (transactions != null)

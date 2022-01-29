@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using MCBABackend.Models;
+using MCBABackend.Utilities;
 using MCBAWebApplication.Models.ViewModels;
 using MCBAWebApplication.Utilities;
 using Microsoft.AspNetCore.Mvc;
@@ -13,22 +14,9 @@ public class DepositController : McbaController
     }
     public async Task<IActionResult> Index()
     {
-        ViewBag.AccountList = await getAccountList();
+        _logger.LogInformation("GET: Deposit/");
+        ViewBag.AccountList = await GetAccountList();
         return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Index(DepositViewModel depositViewModel)
-    {
-        _logger.LogInformation("POST: Deposit/");
-        await CheckViewModel(depositViewModel);
-        if (!ModelState.IsValid)
-        {
-            ViewBag.AccountList = await getAccountList();
-            return View(depositViewModel);
-        }
-        return RedirectToAction("Confirm", depositViewModel);
     }
 
     [HttpPost]
@@ -36,37 +24,55 @@ public class DepositController : McbaController
     public async Task<IActionResult> Confirm([FromForm] DepositViewModel depositViewModel)
     {
         _logger.LogInformation("POST: Deposit/Confirm");
-        await CheckViewModel(depositViewModel);
-        if (!ModelState.IsValid) return RedirectToAction("Index", depositViewModel);
 
-        return RedirectToAction("Index");
-        // return View(depositViewModel);
+        ViewBag.AccountList = await GetAccountList();
+        await CheckViewModel(depositViewModel);
+        if (!ModelState.IsValid)
+        {
+            return View("Index", depositViewModel);
+        }
+
+        return View(depositViewModel);
+
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Complete([FromForm] DepositViewModel depositViewModel){
         _logger.LogInformation("POST: Deposit/Complete");
+        
         await CheckViewModel(depositViewModel);
         if (!ModelState.IsValid) return View("Index", depositViewModel);
-        _logger.LogInformation("Confirm has been successful!");
+
+        await PutQueryCustomerApi($"{_connectionString}/Transaction", new Transaction()
+        {
+            Comment = depositViewModel.Comment,
+            Amount = depositViewModel.Amount,
+            OriginAccountNumber = depositViewModel.Account,
+            TransactionType = TransactionType.Deposit,
+            TransactionTimeUtc = DateTime.Now.ToUniversalTime()
+        });
+
         return RedirectToAction("Index", "Statement");
     }
 
     private async Task CheckViewModel(DepositViewModel depositViewModel)
     {
-        Account? account = await QueryCustomerApi<Account>($"{_connectionString}/Account/{depositViewModel.Account}");
-        if (account == null)
+        if (ModelState.IsValid)
         {
-            ModelState.AddModelError("", "Account does not exist");
-        }
-        else
-        {
-            BankActionValidation.Deposit(ModelState, account, depositViewModel.Amount);
+            Account? account = await GetQueryCustomerApi<Account>($"{_connectionString}/Account/{depositViewModel.Account}");
+            if (account == null)
+            {
+                ModelState.AddModelError("", "Account does not exist");
+            }
+            else
+            {
+                BankActionValidation.Deposit(ModelState, account, depositViewModel.Amount);
+            }
         }
     }
 
-    private async Task<List<string>> getAccountList()
+    private async Task<List<string>> GetAccountList()
     {
         Customer customer = await GetLoggedInCustomer();
         List<string> accountNumbers = new();

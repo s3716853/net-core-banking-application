@@ -14,4 +14,6 @@ public abstract class DataRepository<TEntity, TKey> where TEntity : class
 
     public abstract Task<List<TEntity>> GetAll();
     public abstract Task<TEntity?> Get(TKey id);
+    public abstract Task Add(TEntity entity);
+    public abstract Task Update(TEntity entity);
 }

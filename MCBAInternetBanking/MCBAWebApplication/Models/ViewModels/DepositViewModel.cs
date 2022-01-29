@@ -13,4 +13,8 @@ public class DepositViewModel
     [StringLength(4, MinimumLength = 4)]
     [RegularExpression("^\\d+", ErrorMessage = "Account Number only accepts digits")]
     public string Account { get; set; }
+
+    [StringLength(30, MinimumLength = 1)]
+    [Display(Name = "Comment")]
+    public string? Comment { get; set; }
 }

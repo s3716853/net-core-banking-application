@@ -25,6 +25,11 @@ public class CustomerRepository : DataRepository<Customer, string>
             FirstOrDefaultAsync(customer => customer.CustomerID == id);
     }
 
+    public override Task<int> Add(Customer entity)
+    {
+        throw new NotImplementedException();
+    }
+
     public string Add(Customer customer, Login login)
     {
         // Ensuring the newly added user is the one recieving this login
@@ -38,19 +43,9 @@ public class CustomerRepository : DataRepository<Customer, string>
         return customer.CustomerID;
     }
 
-    public string Update(Customer customer)
+    public override async Task Update(Customer customer)
     {
         _context.Customer.Update(customer);
-        _context.SaveChanges();
-        return customer.CustomerID;
-    }
-
-    public string Delete(string id)
-    {
-        Customer? customer = _context.Customer.Find(id);
-
-        if(customer != null) _context.Customer.Remove(customer);
-
-        return id;
+        await _context.SaveChangesAsync();
     }
 }

@@ -24,15 +24,29 @@ public abstract class McbaController<TModelEntity, TModelRepository, TModelEntit
     }
 
     [HttpGet]
-    public Task<List<TModelEntity>> GetAllAsync()
+    public async Task<List<TModelEntity>> GetAllAsync()
     {
-        return _repo.GetAll();
+        return await _repo.GetAll();
     }
 
     [HttpGet]
     [Route("{key}")]
-    public Task<TModelEntity?> GetAsync(TModelEntityKeyType key)
+    public async Task<TModelEntity?> GetAsync(TModelEntityKeyType key)
     {
-        return _repo.Get(key);
+        return await _repo.Get(key);
+    }
+
+    [HttpPut]
+    public async Task<StatusCodeResult> Add(TModelEntity entity)
+    {
+        await _repo.Add(entity);
+        return StatusCode(200);
+    }
+
+    [HttpPatch]
+    public async Task<StatusCodeResult> Update(TModelEntity entity)
+    {
+        await _repo.Update(entity);
+        return StatusCode(200);
     }
 }

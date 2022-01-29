@@ -29,7 +29,7 @@ public abstract class McbaController : Controller
         base.OnActionExecuting(ctx);
     }
 
-    protected async Task<T?> QueryCustomerApi<T>(string connectionString)
+    protected async Task<T?> GetQueryCustomerApi<T>(string connectionString)
     {
         HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();
 
@@ -40,10 +40,17 @@ public abstract class McbaController : Controller
         return JsonConvert.DeserializeObject<T>(response);
     }
 
+    protected async Task<HttpResponseMessage> PutQueryCustomerApi(string connectionString, object objectToSend)
+    {
+        HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();
+
+        return await httpClient?.PutAsJsonAsync(new Uri(connectionString), objectToSend)!;
+    }
+
     protected async Task<Customer> GetLoggedInCustomer()
     {
         // If the user is logged in this method should never return null (account definetly exists)
-        return (await QueryCustomerApi<Customer>(
+        return (await GetQueryCustomerApi<Customer>(
             $"{_connectionString}/Customer/{HttpContext.Session.GetString(nameof(Customer.CustomerID))}"))!;
     }
 
