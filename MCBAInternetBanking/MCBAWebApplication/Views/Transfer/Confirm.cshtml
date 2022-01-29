@@ -1,0 +1,27 @@
+﻿@model TransferViewModel
+@{
+    ViewData["Title"] = "Transfer";
+    List<string> accounts = (List<string>) @ViewBag.AccountList;
+}
+
+<form method="post" asp-action="Complete">
+    <div class="form-group">
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.Amount)
+        </div>
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.OriginAccount)
+        </div>
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.DestinationAccount)
+        </div>
+        <div class="form-group">
+            @Html.McbaTextArea(model => model.Comment)
+        </div>
+        <div class="form-group">
+            @Html.ActionLink("Cancel", "Index", null, null, new {@class = "btn btn-secondary"})
+            <input type="submit" value="Confirm Transfer" class="btn btn-primary"/>
+        </div>
+    </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</form>
