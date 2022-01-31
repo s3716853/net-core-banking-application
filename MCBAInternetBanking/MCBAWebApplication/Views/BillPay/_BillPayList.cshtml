@@ -1,0 +1,50 @@
+﻿@model List<BillPay>
+
+<div class="text-center">
+    <table class="table">
+        <thead>Previous Bills</thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Payee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ScheduleTimeUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Period)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Completed)
+            </th>
+        </tr>
+        @foreach (BillPay billPay in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => billPay.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Payee)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.ScheduleTimeUtc)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Period)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Completed)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

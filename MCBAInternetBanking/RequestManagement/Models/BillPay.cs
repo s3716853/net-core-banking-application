@@ -29,7 +29,7 @@ public class BillPay
     public decimal Amount { get; set; }
 
     [DataType(DataType.DateTime)]
-    [Display(Name = "Transaction Time")]
+    [Display(Name = "Transfer Time")]
     [DisplayFormat()]
     public DateTime ScheduleTimeUtc { get; set; }
 
