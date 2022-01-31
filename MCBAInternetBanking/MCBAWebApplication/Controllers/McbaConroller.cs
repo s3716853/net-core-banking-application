@@ -46,6 +46,12 @@ public abstract class McbaController : Controller
         return await httpClient?.PutAsJsonAsync(new Uri(connectionString), objectToSend)!;
     }
 
+    protected async Task<HttpResponseMessage> DeleteQueryCustomerApi(string connectionString)
+    {
+        HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();
+        return await httpClient?.DeleteAsync(new Uri(connectionString))!;
+    }
+
     protected async Task<HttpResponseMessage> PostQueryCustomerApi(string connectionString, object objectToSend)
     {
         HttpClient? httpClient = _serviceProvider.GetService<HttpClient>();

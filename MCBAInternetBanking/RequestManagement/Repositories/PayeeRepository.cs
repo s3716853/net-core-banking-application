@@ -32,5 +32,15 @@ public class PayeeRepository : DataRepository<Payee, int>
         _context.Payee.Update(entity);
         await _context.SaveChangesAsync();
     }
+
+    public override async Task Delete(int id)
+    {
+        var entity = await Get(id);
+        if (entity != null)
+        {
+            _context.Payee.Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
 

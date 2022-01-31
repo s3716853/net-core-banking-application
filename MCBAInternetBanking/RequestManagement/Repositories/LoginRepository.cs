@@ -33,6 +33,16 @@ public class LoginRepository : DataRepository<Login, string>
 
     }
 
+    public override async Task Delete(string id)
+    {
+        var entity = await Get(id);
+        if (entity != null)
+        {
+            _context.Login.Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
+
     public async Task<Login?> GetByCustomerId(string customerId)
     {
         return await _context.Login.FirstOrDefaultAsync(login => login.CustomerID == customerId);

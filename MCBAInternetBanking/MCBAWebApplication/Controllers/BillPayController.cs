@@ -42,9 +42,7 @@ public class BillPayController : McbaController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Cancel([FromForm] int billPayId)
     {
-        BillPay billPay = await GetQueryCustomerApi<BillPay>($"{_connectionString}/BillPay/{billPayId}");
-        billPay.Completed = true;
-        await PutQueryCustomerApi($"{_connectionString}/BillPay", billPay);
+        await DeleteQueryCustomerApi($"{_connectionString}/BillPay?key={billPayId}");
         return RedirectToAction("Index");
     }
     private async Task CheckViewModel(BillPayViewModel billPayViewModel)

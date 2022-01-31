@@ -49,4 +49,11 @@ public abstract class McbaController<TModelEntity, TModelRepository, TModelEntit
         await _repo.Update(entity);
         return StatusCode(200);
     }
+
+    [HttpDelete]
+    public async Task<StatusCodeResult> Delete(TModelEntityKeyType key)
+    {
+        await _repo.Delete(key);
+        return StatusCode(200);
+    }
 }

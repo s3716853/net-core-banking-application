@@ -38,6 +38,16 @@ public class BillPayRepository : DataRepository<BillPay, int>
         await _context.SaveChangesAsync();
     }
 
+    public override async Task Delete(int id)
+    {
+        var entity = await Get(id);
+        if (entity != null)
+        {
+            _context.BillPay.Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
+
     public async Task<List<BillPay>> GetByCustomerId(string customerId)
     {
         return await _context.BillPay.Include(billPay => billPay.Payee).Include(billPay => billPay.Account)
