@@ -40,6 +40,7 @@ public static class Constants
     public static readonly decimal TransferTransactionFee = new decimal(0.10);
     public static readonly string WithdrawFeeComment = "Standard withdraw fee";
     public static readonly string TransferFeeComment = "Standard transfer fee";
+    public static readonly string BillPayComment = "Scheduled BillPay";
     public static readonly decimal MinSavingsOpeningBalance = new decimal(50);
     public static readonly decimal MinCheckingOpeningBalance = new decimal(500);
     public static readonly decimal MinSavingsBalance = new decimal(0);

@@ -14,7 +14,8 @@ public class BillPayRepository : DataRepository<BillPay, int>
     {
         return await _context.BillPay.
             Include(billPay => billPay.Payee).
-            Include(billPay => billPay.Account).ToListAsync();
+            Include(billPay => billPay.Account).
+            Include(billPay => billPay.Account.Transactions).ToListAsync();
     }
 
     public override async Task<BillPay?> Get(int id)
