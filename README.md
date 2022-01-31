@@ -26,5 +26,5 @@ Expected Request Body
 }
 ### Transaction History
 GET - /Transaction/Account/{accountNumber}?startDate=[startDate]?endDate=[endDate]
-startDate and endDate get parsed with DateTime.Parse()
+startDate and endDate get parsed with DateTime.Parse() (YYYY/MM/DD format works for DateTime.Parse() for example)
 if not included then all transactions are returned
