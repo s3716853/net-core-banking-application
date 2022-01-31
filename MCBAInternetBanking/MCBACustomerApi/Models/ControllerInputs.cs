@@ -37,5 +37,14 @@ public class ControllerInputs
         public string? PostCode { get; set; }
         public string? Mobile { get; set; }
     }
+
+    public class BillPayCreateInput
+    {
+        public decimal Amount { get; set; }
+        public string Account { get; set; }
+        public int Payee { get; set; }
+        public DateTime ScheduleTimeUtc { get; set; }
+        public Period Period { get; set; }
+    }
 }
 

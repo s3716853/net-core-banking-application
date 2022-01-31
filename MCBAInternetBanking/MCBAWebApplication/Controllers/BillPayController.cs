@@ -15,59 +15,41 @@ public class BillPayController : McbaController
     public async Task<IActionResult> Index()
     {
         _logger.LogInformation("GET: BillPay/");
-        ViewBag.AccountList = await GetAccountList();
-        ViewBag.BillPayList = await GetBillPayList();
-        ViewBag.PayeeList = await GetPayeeList();
+        await PrepareViewBagForView();
         return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Confirm([FromForm] DepositWithdrawViewModel depositWithdrawViewModel)
+    public async Task<IActionResult> Index([FromForm] BillPayViewModel billPayViewModel)
     {
-        _logger.LogInformation("POST: BillPay/Confirm");
-
-        ViewBag.AccountList = await GetAccountList();
-        await CheckViewModel(depositWithdrawViewModel);
+        _logger.LogInformation("POST: BillPay/");
+        
+        await CheckViewModel(billPayViewModel);
+        
         if (!ModelState.IsValid)
         {
-            return View("Index", depositWithdrawViewModel);
+            await PrepareViewBagForView();
+            return View(billPayViewModel);
         }
-
-        return View(depositWithdrawViewModel);
-
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Complete([FromForm] DepositWithdrawViewModel depositWithdrawViewModel){
-        _logger.LogInformation("POST: BillPay/Complete");
         
-        await CheckViewModel(depositWithdrawViewModel);
-        if (!ModelState.IsValid) return View("Index", depositWithdrawViewModel);
+        await PutQueryCustomerApi($"{_connectionString}/BillPay/New", billPayViewModel);
 
-        await PutQueryCustomerApi($"{_connectionString}/Transaction/Withdraw", new
-        {
-            comment = depositWithdrawViewModel.Comment,
-            amount = depositWithdrawViewModel.Amount,
-            accountNumber = depositWithdrawViewModel.Account,
-        });
-
-        return RedirectToAction("Index", "Statement");
+        return RedirectToAction("Index");
     }
 
-    private async Task CheckViewModel(DepositWithdrawViewModel depositWithdrawViewModel)
+    private async Task CheckViewModel(BillPayViewModel billPayViewModel)
     {
         if (ModelState.IsValid)
         {
-            Account? account = await GetQueryCustomerApi<Account>($"{_connectionString}/Account/{depositWithdrawViewModel.Account}");
+            Account? account = await GetQueryCustomerApi<Account>($"{_connectionString}/Account/{billPayViewModel.Account}");
             if (account == null)
             {
                 ModelState.AddModelError("", "Account does not exist");
             }
             else
             {
-                BankActionValidation.Withdraw(ModelState, account, depositWithdrawViewModel.Amount);
+                BankActionValidation.BillPay(ModelState, account, billPayViewModel.Amount);
             }
         }
     }
@@ -88,18 +70,19 @@ public class BillPayController : McbaController
     private async Task<List<BillPay>> GetBillPayList()
     {
         Customer customer = await GetLoggedInCustomer();
-        List<BillPay> billPayList = new List<BillPay>();
-
-        // TODO
-
-        return billPayList;
+        return (await GetQueryCustomerApi<List<BillPay>>($"{_connectionString}/BillPay/Customer/{customer.CustomerID}"))!;
     }
 
     private async Task<List<Payee>> GetPayeeList()
     {
-        // TODO
+        return (await GetQueryCustomerApi<List<Payee>>($"{_connectionString}/Payee"))!;
+    }
 
-        return new List<Payee>();
+    private async Task PrepareViewBagForView()
+    {
+        ViewBag.AccountList = await GetAccountList();
+        ViewBag.BillPayList = await GetBillPayList();
+        ViewBag.PayeeList = await GetPayeeList();
     }
 
 }

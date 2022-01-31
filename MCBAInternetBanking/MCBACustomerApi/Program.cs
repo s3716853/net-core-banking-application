@@ -17,6 +17,8 @@ builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<CustomerRepository>();
 builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<PayeeRepository>();
+builder.Services.AddScoped<BillPayRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

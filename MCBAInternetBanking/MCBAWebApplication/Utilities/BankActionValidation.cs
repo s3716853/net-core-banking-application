@@ -10,7 +10,7 @@ namespace MCBAWebApplication.Utilities
     {
         public static void Deposit(ModelStateDictionary modelState, Account account, decimal amount)
         {
-            // TODO
+            // No implemntion needed here,  but made its own method if future validation needs to be done
         }
 
         public static void Withdraw(ModelStateDictionary modelState, Account account, decimal amount)
@@ -32,6 +32,12 @@ namespace MCBAWebApplication.Utilities
             {
                 modelState.AddModelError("", $"{accountOrigin.AccountType} accounts cannot go below ${Constants.MinBalances[accountOrigin.AccountType]}");
             }
+        }
+
+        public static void BillPay(ModelStateDictionary modelState, Account account, decimal amount)
+        {
+            // BillPay should follow same rules as withdraw, but made its own method if furture validation needs to be done
+            Withdraw(modelState, account, amount);
         }
 
     }

@@ -12,7 +12,7 @@
     List<BillPay> billPays = (List<BillPay>) @ViewBag.BillPayList;
 }
 
-<form method="post" asp-action="Confirm">
+<form method="post" asp-action="Index">
     <div class="form-group">
         <div class="form-group">
             @Html.McbaTextBox(model => model.Amount)
