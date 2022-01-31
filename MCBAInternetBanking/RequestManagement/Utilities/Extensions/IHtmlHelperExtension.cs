@@ -37,6 +37,14 @@ public static class IHtmlHelperExtension
             .AppendHtml(htmlHelper.ValidationMessageFor(expression, null, new { @class = "text-danger" }));
     }
 
+    public static IHtmlContent McbaDate<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
+    {
+        return new HtmlContentBuilder()
+            .AppendHtml(htmlHelper.LabelFor(expression, htmlHelper.DisplayNameFor(expression)))
+            .AppendHtml(htmlHelper.TextBoxFor(expression, new { @class = "form-control", type = "date" }))
+            .AppendHtml(htmlHelper.ValidationMessageFor(expression, null, new { @class = "text-danger" }));
+    }
+
     public static IHtmlContent McbaPassword<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
     {
         return new HtmlContentBuilder()

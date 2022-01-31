@@ -1,0 +1,24 @@
+﻿@using MCBACommon.Utilities.Extensions
+@using MCBACommon.Models
+@model TransactionDateViewModel
+@{
+    ViewData["Title"] = "Customer";
+    List<Transaction> transactions = (List<Transaction>) ViewBag.Transactions;
+}
+
+<h1 class="display-4">Transactions</h1>
+<form method="get" asp-controller="Transaction" asp-action="Details">
+    <div class="form-group">
+        <div class="form-group">
+            @Html.McbaDate(model => model.startDate)
+        </div>
+        <div class="form-group">
+            @Html.McbaDate(model => model.endDate)
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary"/>
+        </div>
+    </div>
+</form>
+
+@await Html.PartialAsync("_Table", transactions)
