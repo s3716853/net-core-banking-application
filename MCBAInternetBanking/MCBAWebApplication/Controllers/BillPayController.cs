@@ -33,11 +33,20 @@ public class BillPayController : McbaController
             return View(billPayViewModel);
         }
         
-        await PutQueryCustomerApi($"{_connectionString}/BillPay/New", billPayViewModel);
+        await PostQueryCustomerApi($"{_connectionString}/BillPay/New", billPayViewModel);
 
         return RedirectToAction("Index");
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Cancel([FromForm] int billPayId)
+    {
+        BillPay billPay = await GetQueryCustomerApi<BillPay>($"{_connectionString}/BillPay/{billPayId}");
+        billPay.Completed = true;
+        await PutQueryCustomerApi($"{_connectionString}/BillPay", billPay);
+        return RedirectToAction("Index");
+    }
     private async Task CheckViewModel(BillPayViewModel billPayViewModel)
     {
         if (ModelState.IsValid)

@@ -30,7 +30,7 @@ public class ProfileController : McbaController
             return View("Index", profileViewModel);
         }
 
-        await PostQueryCustomerApi($"{_connectionString}/Customer", profileCustomerViewModel);
+        await PutQueryCustomerApi($"{_connectionString}/Customer/Update", profileCustomerViewModel);
 
         return RedirectToAction("Index");
     }
@@ -50,7 +50,7 @@ public class ProfileController : McbaController
             return View("Index", profileViewModel);
         }
 
-        await PostQueryCustomerApi($"{_connectionString}/Login", profileLoginViewModelViewModel);
+        await PutQueryCustomerApi($"{_connectionString}/Login/Update", profileLoginViewModelViewModel);
 
         return RedirectToAction("Index");
     }

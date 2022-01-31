@@ -36,14 +36,14 @@ public abstract class McbaController<TModelEntity, TModelRepository, TModelEntit
         return await _repo.Get(key);
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<StatusCodeResult> Add(TModelEntity entity)
     {
         await _repo.Add(entity);
         return StatusCode(200);
     }
 
-    [HttpPatch]
+    [HttpPut]
     public async Task<StatusCodeResult> Update(TModelEntity entity)
     {
         await _repo.Update(entity);

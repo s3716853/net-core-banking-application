@@ -22,6 +22,9 @@
             <th>
                 @Html.DisplayNameFor(model => model[0].Completed)
             </th>
+            <th>
+                Actions
+            </th>
         </tr>
         @foreach (BillPay billPay in Model)
         {
@@ -43,6 +46,23 @@
                 </td>
                 <td>
                     @Html.DisplayFor(model => billPay.Completed)
+                </td>
+                <td>
+                    @* if the bill isnt complete, but its already past the transfer time, assume the account didnt have enough *@
+                    @if (!billPay.Completed)
+                    {
+                        @if (billPay.ScheduleTimeUtc < DateTime.Now)
+                        {
+                            <div>
+                                Your account lacked funds for this transfer
+                            </div>
+                        }
+                        <form method="post" asp-action="Cancel">
+                            <input type="hidden" id="BillPayId" name="BillPayId" value="@billPay.BillPayId">
+                            <input type="submit" value="Cancel" class="btn btn-danger"/>
+                        </form>
+                    }
+
                 </td>
             </tr>
         }

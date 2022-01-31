@@ -22,7 +22,7 @@ public class BillPayController : McbaController<BillPay, BillPayRepository, int>
         return await _repo.GetByCustomerId(customerId);
     }
 
-    [HttpPut]
+    [HttpPost]
     [Route("New")]
     public async Task<StatusCodeResult> New(ControllerInputs.BillPayCreateInput input)
     {
