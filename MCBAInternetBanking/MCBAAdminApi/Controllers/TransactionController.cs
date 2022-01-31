@@ -17,8 +17,11 @@ public class TransactionController : McbaController<Transaction, TransactionRepo
 
     [HttpGet]
     [Route("Account/{accountNumber}")]
-    public async Task<List<Transaction>> GetByAccountNumber(string accountNumber)
+    public async Task<List<Transaction>> GetByRangeAccountNumber(string accountNumber, [FromQuery] string? startDate, [FromQuery] string? endDate)
     {
-        return await _repo.GetByAccountNumber(accountNumber);
+        DateTime? startDateTime = startDate == null ? null : DateTime.Parse(startDate);
+        DateTime? endDateTime = endDate == null ? null : DateTime.Parse(endDate);
+
+        return await _repo.GetByAccountNumberWithRange(accountNumber, startDateTime, endDateTime);
     }
 }

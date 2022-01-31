@@ -52,6 +52,21 @@ public class TransactionRepository : DataRepository<Transaction, int>
             .ToListAsync();
     }
 
+    public async Task<List<Transaction>> GetByAccountNumberWithRange(string accountNumber, DateTime? start, DateTime? end)
+    {
+        if (start == null || end == null)
+        {
+            return await GetByAccountNumber(accountNumber);
+        }
+        else
+        {
+            return await _context.Transaction.
+                Where(transaction => transaction.OriginAccountNumber == accountNumber).
+                Where(transaction => transaction.TransactionTimeUtc >= start).
+                Where(transaction => transaction.TransactionTimeUtc <= end).ToListAsync();
+        }
+    }
+
     public async Task Deposit(Transaction entity)
     {
         DateTime transactionTime = DateTime.Now.ToUniversalTime();
