@@ -1,0 +1,16 @@
+﻿@using MCBACommon.Models
+@model List<MCBACommon.Models.Account>
+@{
+    ViewData["Title"] = "Customer";
+}
+
+<h1 class="display-4">Accounts</h1>
+<ul>
+    @foreach (Account account in Model)
+    {
+        <li>
+            @Html.ActionLink($"{account.AccountNumber}", "Details", new { id = account.AccountNumber})
+        </li>
+    }
+</ul>
+
