@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace MCBABackend.Utilities.Extensions;
+namespace MCBACommon.Utilities.Extensions;
 public static class StringBuilderExtension
 {
     // Attempting to overload Append to take an array of strings would not work

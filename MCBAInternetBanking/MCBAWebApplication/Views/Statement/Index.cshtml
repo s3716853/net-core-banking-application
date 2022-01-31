@@ -1,0 +1,19 @@
+﻿@using MCBACommon.Models
+@using MCBACommon.Utilities.Extensions
+@model List<MCBACommon.Models.Account>
+@{
+    ViewData["Title"] = "My Statements";
+}
+
+<div class="text-center">
+    <ul>
+        @foreach (Account account in Model)
+        {
+            <li>
+                <a asp-controller="Statement" asp-action="Account" asp-route-id="@account.AccountNumber">@account.AccountNumber</a>
+                -
+                <span>@account.Balance().ToString("C")</span>
+            </li>
+        }
+    </ul>
+</div>

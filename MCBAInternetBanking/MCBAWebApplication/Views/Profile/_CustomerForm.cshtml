@@ -1,0 +1,35 @@
+﻿@using MCBACommon.Utilities
+@using MCBACommon.Utilities.Extensions
+@model ProfileCustomerViewModel
+
+<h1 class="display-4">Details</h1>
+<form method="post" asp-controller="Profile" asp-action="Customer">
+    <div class="form-group">
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.Name)
+        </div>
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.TFN)
+        </div>
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.Address)
+        </div>
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.Suburb)
+        </div>
+        <div class="form-group">
+            @Html.McbaDropDown(model => model.State, new SelectList(Enum.GetValues<States>(), "Select State"), "State")
+        </div>
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.PostCode)
+        </div>
+        <div class="form-group">
+            @Html.McbaTextBox(model => model.Mobile)
+        </div>
+        @Html.HiddenFor(model => model.CustomerID)
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary"/>
+        </div>
+    </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</form>

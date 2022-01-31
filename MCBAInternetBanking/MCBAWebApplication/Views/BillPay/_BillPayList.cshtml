@@ -1,0 +1,72 @@
+﻿@using MCBACommon.Models
+@using System.Globalization
+@model List<MCBACommon.Models.BillPay>
+
+<div class="text-center">
+    <table class="table">
+        <thead>Previous Bills</thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Payee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ScheduleTimeUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Period)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Completed)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+        @foreach (BillPay billPay in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => billPay.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Payee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Amount)
+                </td>
+                <td>
+                    @billPay.ScheduleTimeUtc.ToLocalTime().ToString(CultureInfo.CurrentUICulture)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Period)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => billPay.Completed)
+                </td>
+                <td>
+                    @* if the bill isnt complete, but its already past the transfer time, assume the account didnt have enough *@
+                    @if (!billPay.Completed)
+                    {
+                        @if (billPay.ScheduleTimeUtc < DateTime.Now)
+                        {
+                            <div>
+                                Your account lacked funds for this transfer
+                            </div>
+                        }
+                        <form method="post" asp-action="Cancel">
+                            <input type="hidden" id="BillPayId" name="BillPayId" value="@billPay.BillPayId">
+                            <input type="submit" value="Cancel" class="btn btn-danger"/>
+                        </form>
+                    }
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>

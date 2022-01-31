@@ -1,7 +1,8 @@
 ﻿using System.Text;
-using MCBABackend.Models;
+using MCBACommon.Models;
+using MCBACommon.Models.Dto;
 
-namespace MCBABackend.Utilities.Extensions;
+namespace MCBACommon.Utilities.Extensions;
 public static class CustomerExtension
 {
     // Cannot override ToString with extension methods
@@ -19,14 +20,36 @@ public static class CustomerExtension
         {
             $"CustomerID={customer.CustomerID}",
             $"Name={customer.Name}",
-            $"Address={customer.Address}",
-            $"City={customer.City}",
+            $"TFN={customer.TFN}",
+            $"Suburb={customer.Suburb}",
+            $"State={customer.State}",
             $"PostCode={customer.PostCode}",
+            $"Mobile={customer.Mobile}",
+            "-Accounts-",
+            accountString,
             "-Login-",
             $"{customer.Login.AsString().TrimEnd()}",
-            "-Accounts-",
-            accountString
         };
         return new StringBuilder().AppendArray(customerString).ToString();
+    }
+
+    public static Customer ToCustomer(this CustomerDto dto)
+    {
+        List<Account> accounts = new List<Account>();
+        dto.Accounts.ForEach(accountDto =>
+        {
+            accounts.Add(accountDto.ToAccount());
+        });
+
+        return new Customer()
+        {
+            CustomerID = dto.CustomerID,
+            Name = dto.Name,
+            Address = dto.Address,
+            Suburb = dto.City, // suburb renamed to city but still functionally same
+            PostCode = dto.PostCode,
+            Accounts = accounts,
+            Login = dto.Login.ToLogin(dto.CustomerID)
+        };
     }
 }
