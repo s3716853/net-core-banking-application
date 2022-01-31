@@ -2,9 +2,8 @@ using MCBACommon.Controllers;
 using MCBACommon.Models;
 using MCBACommon.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 
-namespace MCBACustomerApi.Controllers;
+namespace MCBAAdminApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]

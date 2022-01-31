@@ -1,7 +1,8 @@
 using MCBACommon.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
-namespace MCBACustomerApi.Controllers;
+namespace MCBACommon.Controllers;
 
 /// <summary>
 /// Creates a controller with _repo and _logger as well as a constructor to set these. _repo is a repository, _logger the logger 
