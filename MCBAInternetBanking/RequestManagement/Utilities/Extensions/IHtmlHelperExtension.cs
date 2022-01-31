@@ -14,7 +14,7 @@ public static class IHtmlHelperExtension
             .AppendHtml(htmlHelper.ValidationMessageFor(expression, null, new {@class = "text-danger"}));
     }
 
-    public static IHtmlContent McbaDropDown<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, SelectList selectList, string? optionLabel = null)
+    public static IHtmlContent McbaDropDown<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, IEnumerable<SelectListItem> selectList, string? optionLabel = null)
     {
         return new HtmlContentBuilder()
             .AppendHtml(htmlHelper.LabelFor(expression, htmlHelper.DisplayNameFor(expression)))
@@ -27,6 +27,13 @@ public static class IHtmlHelperExtension
         return new HtmlContentBuilder()
             .AppendHtml(htmlHelper.LabelFor(expression, htmlHelper.DisplayNameFor(expression)))
             .AppendHtml(htmlHelper.TextBoxFor(expression, new { @class = "form-control" }))
+            .AppendHtml(htmlHelper.ValidationMessageFor(expression, null, new { @class = "text-danger" }));
+    }
+    public static IHtmlContent McbaDateTime<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
+    {
+        return new HtmlContentBuilder()
+            .AppendHtml(htmlHelper.LabelFor(expression, htmlHelper.DisplayNameFor(expression)))
+            .AppendHtml(htmlHelper.TextBoxFor(expression, new { @class = "form-control", type = "datetime-local" }))
             .AppendHtml(htmlHelper.ValidationMessageFor(expression, null, new { @class = "text-danger" }));
     }
 

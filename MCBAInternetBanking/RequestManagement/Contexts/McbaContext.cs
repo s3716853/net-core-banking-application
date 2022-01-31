@@ -15,4 +15,8 @@ public class McbaContext : DbContext
     public DbSet<Login> Login { get; set; }
 
     public DbSet<Transaction> Transaction { get; set; }
+
+    public DbSet<BillPay> BillPay { get; set; }
+
+    public DbSet<Payee> Payee { get; set; }
 }

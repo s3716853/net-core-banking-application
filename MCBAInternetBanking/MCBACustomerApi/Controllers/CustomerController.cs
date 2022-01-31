@@ -13,7 +13,8 @@ public class CustomerController : McbaController<Customer, CustomerRepository, s
     {
     }
 
-    [HttpPost]
+    [HttpPut]
+    [Route("Update")]
     public async Task Update([FromBody] ControllerInputs.CustomerUpdateInput customerUpdateInput)
     {
         Customer? customer = await _repo.Get(customerUpdateInput.CustomerID);

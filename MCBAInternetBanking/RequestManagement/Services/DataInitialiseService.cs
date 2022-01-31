@@ -1,9 +1,9 @@
 ﻿using MCBABackend.Contexts;
 using MCBABackend.Models;
 using MCBABackend.Models.Dto;
+using MCBABackend.Utilities;
 using MCBABackend.Utilities.Extensions;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace MCBABackend.Services;
@@ -23,9 +23,11 @@ public static class DataInitialiseService
             customers.Add(customerDto.ToCustomer());
         });
 
+        mcbaContext.Payee.AddRange(PayeeSeedData());
         mcbaContext.Customer.AddRange(customers);
         mcbaContext.SaveChanges();
     }
+
     private static List<CustomerDto>? Retrieve(string url)
     {
         using var client = new HttpClient();
@@ -39,5 +41,42 @@ public static class DataInitialiseService
         });
 
         return customers;
+    }
+
+    private static List<Payee> PayeeSeedData()
+    {
+        List<Payee> payees = new List<Payee>();
+
+        payees.Add(new Payee()
+        {
+            Name = "Telstra",
+            Address = "123 Telstra Street",
+            Mobile = "0459 015 570",
+            PostCode = "3223",
+            State = States.Vic,
+            Suburb = "Bundoora"
+        });
+
+        payees.Add(new Payee()
+        {
+            Name = "Optus",
+            Address = "123 Optus Street",
+            Mobile = "0459 015 570",
+            PostCode = "3223",
+            State = States.Vic,
+            Suburb = "Watsonia"
+        });
+
+        payees.Add(new Payee()
+        {
+            Name = "MCBA",
+            Address = "123 MCBA Street",
+            Mobile = "0459 015 570",
+            PostCode = "3223",
+            State = States.Tas,
+            Suburb = "???"
+        });
+
+        return payees;
     }
 }

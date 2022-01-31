@@ -49,4 +49,14 @@ public class CustomerRepository : DataRepository<Customer, string>
         _context.Customer.Update(customer);
         await _context.SaveChangesAsync();
     }
+
+    public override async Task Delete(string id)
+    {
+        var entity = await Get(id);
+        if (entity != null)
+        {
+            _context.Customer.Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
 }

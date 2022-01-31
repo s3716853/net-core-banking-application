@@ -1,7 +1,6 @@
 using MCBABackend.Models;
 using MCBABackend.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 
 namespace MCBACustomerApi.Controllers;
 

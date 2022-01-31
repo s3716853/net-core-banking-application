@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using MCBABackend.Contexts;
 using MCBABackend.Repositories;
 using MCBABackend.Services;
+using MCBACustomerApi.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,11 @@ builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<CustomerRepository>();
 builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<PayeeRepository>();
+builder.Services.AddScoped<BillPayRepository>();
+
+// Background Services
+builder.Services.AddHostedService<BillPayBackgroundService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

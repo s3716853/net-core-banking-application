@@ -21,7 +21,8 @@ public class LoginController : McbaController<Login, LoginRepository, string>
         return _repo.GetByCustomerId(id);
     }
 
-    [HttpPost]
+    [HttpPut]
+    [Route("Update")]
     public async Task Update([FromBody] ControllerInputs.LoginUpdateInput loginUpdateInput)
     {
         Login? login = await GetByCustomerId(loginUpdateInput.customerID);

@@ -37,6 +37,16 @@ public class AccountRepository : DataRepository<Account, string>
         await _context.SaveChangesAsync();
     }
 
+    public override async Task Delete(string id)
+    {
+        var entity = await Get(id);
+        if (entity != null)
+        {
+            _context.Account.Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
+
     public async Task<List<Account>> GetByCustomerId(string customerId)
     {
         return await _context.Account.Where(account => account.CustomerID == customerId).Include(account => account.Transactions).ToListAsync();

@@ -35,6 +35,17 @@ public class TransactionRepository : DataRepository<Transaction, int>
         await _context.SaveChangesAsync();
     }
 
+
+    public override async Task Delete(int id)
+    {
+        var entity = await Get(id);
+        if (entity != null)
+        {
+            _context.Transaction.Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
+
     public async Task<List<Transaction>> GetByAccountNumber(string accountNumber)
     {
         return await _context.Transaction.Where(transaction => transaction.OriginAccountNumber == accountNumber)

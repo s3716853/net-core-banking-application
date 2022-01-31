@@ -41,7 +41,7 @@ public class TransferController : McbaController
         await CheckViewModel(transferViewModel);
         if (!ModelState.IsValid) return View("Index", transferViewModel);
         
-        await PutQueryCustomerApi($"{_connectionString}/Transaction/Transfer", new
+        await PostQueryCustomerApi($"{_connectionString}/Transaction/Transfer", new
         {
             comment = transferViewModel.Comment,
             amount = transferViewModel.Amount,

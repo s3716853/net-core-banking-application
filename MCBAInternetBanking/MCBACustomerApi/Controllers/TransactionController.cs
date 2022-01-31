@@ -22,7 +22,7 @@ public class TransactionController : McbaController<Transaction, TransactionRepo
         return await _repo.GetByAccountNumber(accountNumber);
     }
 
-    [HttpPut]
+    [HttpPost]
     [Route("Deposit")]
     public async Task<StatusCodeResult> Deposit(ControllerInputs.DepositWithdrawInput input)
     {
@@ -37,7 +37,7 @@ public class TransactionController : McbaController<Transaction, TransactionRepo
         return StatusCode(200);
     }
 
-    [HttpPut]
+    [HttpPost]
     [Route("Withdraw")]
     public async Task<StatusCodeResult> Withdraw(ControllerInputs.DepositWithdrawInput input)
     {
@@ -52,7 +52,7 @@ public class TransactionController : McbaController<Transaction, TransactionRepo
         return StatusCode(200);
     }
 
-    [HttpPut]
+    [HttpPost]
     [Route("Transfer")]
     public async Task<StatusCodeResult> Transfer(ControllerInputs.TransferInput input)
     {
