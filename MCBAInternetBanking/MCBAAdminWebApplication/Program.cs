@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 // Configuring CustomerApi
 builder.Services.AddHttpClient(Options.DefaultName, client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration.GetConnectionString("CustomerApi"));
+    client.BaseAddress = new Uri(builder.Configuration.GetConnectionString("AdminApi"));
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
@@ -34,10 +34,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
