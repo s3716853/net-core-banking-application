@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace MCBABackend.Utilities.Extensions;
+namespace MCBACommon.Utilities.Extensions;
 
 public static class IHtmlHelperExtension
 {

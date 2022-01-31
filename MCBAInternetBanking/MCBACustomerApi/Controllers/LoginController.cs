@@ -1,5 +1,5 @@
-using MCBABackend.Models;
-using MCBABackend.Repositories;
+using MCBACommon.Models;
+using MCBACommon.Repositories;
 using MCBACustomerApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using SimpleHashing;

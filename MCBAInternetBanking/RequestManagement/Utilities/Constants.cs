@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using JetBrains.Annotations;
-
-namespace MCBABackend.Utilities;
+﻿namespace MCBACommon.Utilities;
 public enum TransactionType
 {
     Deposit,

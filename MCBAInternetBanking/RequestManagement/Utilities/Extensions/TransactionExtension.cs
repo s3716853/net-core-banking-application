@@ -1,8 +1,8 @@
 ﻿using System.Text;
-using MCBABackend.Models;
-using MCBABackend.Models.Dto;
+using MCBACommon.Models;
+using MCBACommon.Models.Dto;
 
-namespace MCBABackend.Utilities.Extensions;
+namespace MCBACommon.Utilities.Extensions;
 public static class TransactionExtension
 {
     // Cannot override ToString with extension methods

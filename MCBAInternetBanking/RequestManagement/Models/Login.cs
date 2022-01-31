@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace MCBABackend.Models;
+namespace MCBACommon.Models;
 public class Login
 {
     [Key]

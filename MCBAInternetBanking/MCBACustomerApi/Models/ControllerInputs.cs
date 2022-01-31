@@ -1,4 +1,4 @@
-﻿using MCBABackend.Utilities;
+﻿using MCBACommon.Utilities;
 
 namespace MCBACustomerApi.Models;
 

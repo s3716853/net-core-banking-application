@@ -1,7 +1,7 @@
-﻿using MCBABackend.Models;
+﻿using MCBACommon.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MCBABackend.Contexts;
+namespace MCBACommon.Contexts;
 
 public class McbaContext : DbContext
 {

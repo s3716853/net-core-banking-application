@@ -1,4 +1,4 @@
-﻿namespace MCBABackend.Models.Validators;
+﻿namespace MCBACommon.Models.Validators;
 
 public class DecimalGreaterThanZeroAttribute: System.ComponentModel.DataAnnotations.ValidationAttribute
 {

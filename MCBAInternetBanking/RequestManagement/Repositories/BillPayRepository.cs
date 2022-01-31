@@ -1,8 +1,8 @@
-﻿using MCBABackend.Contexts;
-using MCBABackend.Models;
+﻿using MCBACommon.Contexts;
+using MCBACommon.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MCBABackend.Repositories;
+namespace MCBACommon.Repositories;
 
 public class BillPayRepository : DataRepository<BillPay, int>
 {

@@ -1,6 +1,6 @@
-using MCBABackend.Models;
-using MCBABackend.Repositories;
-using MCBABackend.Utilities;
+using MCBACommon.Models;
+using MCBACommon.Repositories;
+using MCBACommon.Utilities;
 using MCBACustomerApi.Models;
 using Microsoft.AspNetCore.Mvc;
 

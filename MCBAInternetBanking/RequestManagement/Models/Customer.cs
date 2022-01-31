@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MCBABackend.Utilities;
+using MCBACommon.Utilities;
 
-namespace MCBABackend.Models;
+namespace MCBACommon.Models;
 public class Customer
 {
     // Changed from initial db design of this being an int since its never actually used in any calculations

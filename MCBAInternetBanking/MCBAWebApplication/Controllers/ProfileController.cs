@@ -1,4 +1,4 @@
-﻿using MCBABackend.Models;
+﻿using MCBACommon.Models;
 using MCBAWebApplication.Models.ViewModels;
 using MCBAWebApplication.Utilities;
 using Microsoft.AspNetCore.Mvc;

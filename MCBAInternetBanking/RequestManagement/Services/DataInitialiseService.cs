@@ -1,12 +1,12 @@
-﻿using MCBABackend.Contexts;
-using MCBABackend.Models;
-using MCBABackend.Models.Dto;
-using MCBABackend.Utilities;
-using MCBABackend.Utilities.Extensions;
+﻿using MCBACommon.Contexts;
+using MCBACommon.Models;
+using MCBACommon.Models.Dto;
+using MCBACommon.Utilities;
+using MCBACommon.Utilities.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
-namespace MCBABackend.Services;
+namespace MCBACommon.Services;
 public static class DataInitialiseService
 {
     public static void Start(IServiceProvider serviceProvider, string url)

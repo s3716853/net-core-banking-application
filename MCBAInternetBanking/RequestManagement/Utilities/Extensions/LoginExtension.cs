@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using MCBABackend.Models;
-using MCBABackend.Models.Dto;
+using MCBACommon.Models;
+using MCBACommon.Models.Dto;
 using SimpleHashing;
 
-namespace MCBABackend.Utilities.Extensions;
+namespace MCBACommon.Utilities.Extensions;
 public static class LoginExtension
 {
     // Cannot override ToString with extension methods

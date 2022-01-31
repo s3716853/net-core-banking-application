@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MCBABackend.Models;
-using MCBABackend.Models.Validators;
-using MCBABackend.Utilities;
+using MCBACommon.Models.Validators;
+using MCBACommon.Utilities;
 
 namespace MCBAWebApplication.Models.ViewModels;
 public class BillPayViewModel

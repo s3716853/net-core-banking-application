@@ -1,4 +1,4 @@
-﻿namespace MCBABackend.Models.Dto;
+﻿namespace MCBACommon.Models.Dto;
 public class CustomerDto
 {
     public string CustomerID { get; set; }

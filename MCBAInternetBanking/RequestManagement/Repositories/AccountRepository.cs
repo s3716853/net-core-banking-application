@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using MCBABackend.Contexts;
-using MCBABackend.Models;
-using MCBABackend.Utilities;
+﻿using MCBACommon.Contexts;
+using MCBACommon.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace MCBABackend.Repositories;
+namespace MCBACommon.Repositories;
 
 public class AccountRepository : DataRepository<Account, string>
 {

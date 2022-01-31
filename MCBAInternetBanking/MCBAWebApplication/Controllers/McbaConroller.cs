@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using MCBABackend.Models;
+using MCBACommon.Models;
 using MCBAWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

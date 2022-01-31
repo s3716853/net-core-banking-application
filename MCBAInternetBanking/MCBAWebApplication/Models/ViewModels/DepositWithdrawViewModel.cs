@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MCBABackend.Models;
-using MCBABackend.Models.Validators;
+using MCBACommon.Models.Validators;
 
 namespace MCBAWebApplication.Models.ViewModels;
 public class DepositWithdrawViewModel

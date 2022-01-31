@@ -1,8 +1,7 @@
-﻿using MCBABackend.Contexts;
-using MCBABackend.Models;
-using MCBABackend.Repositories;
-using MCBABackend.Utilities;
-using MCBABackend.Utilities.Extensions;
+﻿using MCBACommon.Models;
+using MCBACommon.Repositories;
+using MCBACommon.Utilities;
+using MCBACommon.Utilities.Extensions;
 
 namespace MCBACustomerApi.Services
 {

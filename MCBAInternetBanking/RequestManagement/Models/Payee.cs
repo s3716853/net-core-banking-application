@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MCBABackend.Utilities;
+using MCBACommon.Utilities;
 
-namespace MCBABackend.Models;
+namespace MCBACommon.Models;
 public class Payee
 {
     [Key]

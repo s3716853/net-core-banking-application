@@ -1,8 +1,8 @@
-﻿using MCBABackend.Models;
-using MCBABackend.Models.Dto;
-using System.Text;
+﻿using System.Text;
+using MCBACommon.Models;
+using MCBACommon.Models.Dto;
 
-namespace MCBABackend.Utilities.Extensions;
+namespace MCBACommon.Utilities.Extensions;
 public static class AccountExtension
 {
     // Cannot override ToString with extension methods

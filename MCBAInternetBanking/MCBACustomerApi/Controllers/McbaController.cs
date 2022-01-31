@@ -1,5 +1,4 @@
-using MCBABackend.Models;
-using MCBABackend.Repositories;
+using MCBACommon.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MCBACustomerApi.Controllers;

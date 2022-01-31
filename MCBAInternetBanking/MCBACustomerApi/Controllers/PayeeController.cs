@@ -1,5 +1,5 @@
-using MCBABackend.Models;
-using MCBABackend.Repositories;
+using MCBACommon.Models;
+using MCBACommon.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 

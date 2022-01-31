@@ -1,6 +1,4 @@
-﻿using MCBABackend.Utilities;
-
-namespace MCBABackend.Models.Dto;
+﻿namespace MCBACommon.Models.Dto;
 public class AccountDto
 {
     public string AccountNumber { get; set; }

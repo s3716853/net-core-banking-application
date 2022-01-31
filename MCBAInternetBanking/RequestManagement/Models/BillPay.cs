@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-using MCBABackend.Models.Validators;
-using MCBABackend.Utilities;
+using MCBACommon.Models.Validators;
+using MCBACommon.Utilities;
 
-namespace MCBABackend.Models;
+namespace MCBACommon.Models;
 public class BillPay
 {
     [Key]
@@ -17,7 +16,7 @@ public class BillPay
     public Account Account { get; set; }
 
     [Display(Name = "Payee")]
-    [ForeignKey(nameof(MCBABackend.Models.Payee))]
+    [ForeignKey(nameof(Models.Payee))]
     public int PayeeId { get; set; }
 
     public Payee Payee { get; set; }

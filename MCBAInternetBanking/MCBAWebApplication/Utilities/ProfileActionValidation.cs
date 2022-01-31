@@ -1,7 +1,4 @@
-﻿using MCBABackend.Models;
-using MCBABackend.Utilities;
-using MCBABackend.Utilities.Extensions;
-using MCBAWebApplication.Models.ViewModels;
+﻿using MCBAWebApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SimpleHashing;
 

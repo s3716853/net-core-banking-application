@@ -1,7 +1,7 @@
+using MCBACommon.Contexts;
+using MCBACommon.Repositories;
+using MCBACommon.Services;
 using Newtonsoft.Json;
-using MCBABackend.Contexts;
-using MCBABackend.Repositories;
-using MCBABackend.Services;
 using MCBACustomerApi.Services;
 using Microsoft.EntityFrameworkCore;
 

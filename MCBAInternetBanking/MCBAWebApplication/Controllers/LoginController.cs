@@ -1,5 +1,5 @@
-﻿using MCBABackend.Models;
-using MCBABackend.Utilities.Extensions;
+﻿using MCBACommon.Models;
+using MCBACommon.Utilities.Extensions;
 using MCBAWebApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

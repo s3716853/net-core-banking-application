@@ -1,7 +1,6 @@
-﻿using MCBABackend.Contexts;
-using MCBABackend.Models;
+﻿using MCBACommon.Contexts;
 
-namespace MCBABackend.Repositories;
+namespace MCBACommon.Repositories;
 
 public abstract class DataRepository<TEntity, TKey> where TEntity : class
 {

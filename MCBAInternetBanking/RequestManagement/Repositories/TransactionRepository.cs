@@ -1,10 +1,10 @@
-﻿using MCBABackend.Contexts;
-using MCBABackend.Models;
-using MCBABackend.Utilities;
-using MCBABackend.Utilities.Extensions;
+﻿using MCBACommon.Contexts;
+using MCBACommon.Models;
+using MCBACommon.Utilities;
+using MCBACommon.Utilities.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace MCBABackend.Repositories;
+namespace MCBACommon.Repositories;
 
 public class TransactionRepository : DataRepository<Transaction, int>
 {

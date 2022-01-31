@@ -1,7 +1,6 @@
 ﻿using MCBAWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using MCBABackend.Models;
 
 namespace MCBAWebApplication.Controllers;
 

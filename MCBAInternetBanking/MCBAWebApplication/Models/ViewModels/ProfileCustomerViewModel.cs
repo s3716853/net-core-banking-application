@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MCBABackend.Utilities;
+using MCBACommon.Utilities;
 
 namespace MCBAWebApplication.Models.ViewModels;
 public class ProfileCustomerViewModel

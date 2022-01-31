@@ -1,6 +1,6 @@
-﻿using MCBABackend.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using MCBACommon.Models;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using X.PagedList;
 

@@ -1,6 +1,6 @@
-﻿using MCBABackend.Utilities;
+﻿using MCBACommon.Utilities;
 
-namespace MCBABackend.Models.Dto;
+namespace MCBACommon.Models.Dto;
 public class TransactionDto
 {
     public TransactionType TransactionType = TransactionType.Deposit; // All loaded in transactions are deposit
