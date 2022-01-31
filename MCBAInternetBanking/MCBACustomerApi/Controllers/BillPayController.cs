@@ -33,7 +33,7 @@ public class BillPayController : McbaController<BillPay, BillPayRepository, int>
             Completed = false,
             PayeeId = input.Payee,
             Period = input.Period,
-            ScheduleTimeUtc = input.ScheduleTimeUtc
+            ScheduleTimeUtc = input.ScheduleTimeUtc.ToUniversalTime() //Be sure its actually been sent as universal time
         });
 
         return StatusCode(200);

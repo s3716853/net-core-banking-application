@@ -43,26 +43,28 @@ namespace MCBACustomerApi.Services
             foreach (BillPay billPay in billPays)
             {
                 // if scheduled for before current time and hasnt been complete then complete
-                if (billPay.ScheduleTimeUtc <= DateTime.Now && !billPay.Completed)
+                if (billPay.ScheduleTimeUtc <= DateTime.Now && 
+                    !billPay.Completed &&
+                    billPay.Account.Balance() - billPay.Amount >= Constants.MinBalances[billPay.Account.AccountType])
                 {
-                    decimal minBalance = Constants.MinBalances[billPay.Account.AccountType];
-                    if (billPay.Account.Balance() - billPay.Amount >= minBalance)
+                    await transactionRepository.Add(new Transaction()
                     {
-                        await transactionRepository.Add(new Transaction()
-                        {
-                            Amount = billPay.Amount,
-                            Comment = Constants.BillPayComment,
-                            OriginAccountNumber = billPay.AccountNumber,
-                            TransactionTimeUtc = DateTime.Now.ToUniversalTime(),
-                            TransactionType = TransactionType.BillPay
-                        });
+                        Amount = billPay.Amount,
+                        Comment = Constants.BillPayComment,
+                        OriginAccountNumber = billPay.AccountNumber,
+                        TransactionTimeUtc = DateTime.Now.ToUniversalTime(),
+                        TransactionType = TransactionType.BillPay
+                    });
 
-                        if (billPay.Period == Period.OneOff)
-                        {
-                            billPay.Completed = true;
-                            await billPayRepository.Update(billPay);
-                        }
+                    if (billPay.Period == Period.OneOff)
+                    {
+                        billPay.Completed = true; // One offs can be completed
                     }
+                    else
+                    {
+                        billPay.ScheduleTimeUtc = billPay.ScheduleTimeUtc.AddMonths(1); // Monthly needs to be done next month
+                    }
+                    await billPayRepository.Update(billPay);
                 }
             }
         }
