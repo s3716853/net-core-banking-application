@@ -4,6 +4,7 @@ using MCBABackend.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MCBAWebApplication.Migrations
 {
     [DbContext(typeof(McbaContext))]
-    partial class McbaContextModelSnapshot : ModelSnapshot
+    [Migration("20220131002029_BillPay")]
+    partial class BillPay
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,13 +54,10 @@ namespace MCBAWebApplication.Migrations
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");
-
-                    b.Property<bool>("Completed")
-                        .HasColumnType("bit");
 
                     b.Property<int>("PayeeId")
                         .HasColumnType("int");
@@ -70,8 +69,6 @@ namespace MCBAWebApplication.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("BillPayId");
-
-                    b.HasIndex("AccountNumber");
 
                     b.HasIndex("PayeeId");
 
@@ -229,19 +226,11 @@ namespace MCBAWebApplication.Migrations
 
             modelBuilder.Entity("MCBABackend.Models.BillPay", b =>
                 {
-                    b.HasOne("MCBABackend.Models.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MCBABackend.Models.Payee", "Payee")
                         .WithMany()
                         .HasForeignKey("PayeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Account");
 
                     b.Navigation("Payee");
                 });

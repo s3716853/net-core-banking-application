@@ -28,6 +28,12 @@ public enum States
     Nsw
 }
 
+public enum Period
+{
+    OneOff,
+    Monthly
+}
+
 public static class Constants
 {
     public static readonly decimal WithdrawTransactionFee = new decimal(0.05);
