@@ -8,6 +8,8 @@ https://github.com/rmit-wdt-fs-2022/s3716853-a2
 Migrations are all done in MCBACustomerAPI
 ### Main App
 MCBAWebApplication requires MCBACustomerAPI to be running for it to function, so run MCBACustomerAPI and then run MCBAWebApplication.
+
+All these can be run either through Visual Studio, or by running 'dotnet run' within their respective folders.
 ### Admin
 MCBAAdminWebApplication requires MCBAAdminAPI to be running for it to function, so run MCBAAdminAPI and then run MCBAAdminWebApplication.
 
@@ -15,14 +17,19 @@ All these can be run either through Visual Studio, or by running 'dotnet run' wi
 ## User Logins (username - password)
 ### Users
 12345678 - abc123
+
 38074569 - ilovermit2020
+
 17963428 - youWill_n0tGuess-This!
 ### Admin (only works on admin site)
 admin - admin
 ## Ports
 MCBAWebApplication - 7575
+
 MCBACustomerAPI - 59823
+
 MCBAAdminWebApplication - 26984
+
 MCBAAdminAPI - 38999
 ## Admin Api
 Every table in the database has the following actions:
