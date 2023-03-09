@@ -14,13 +14,13 @@ All these can be run either through Visual Studio, or by running 'dotnet run' wi
 MCBAAdminWebApplication requires MCBAAdminAPI to be running for it to function, so run MCBAAdminAPI and then run MCBAAdminWebApplication.
 
 All these can be run either through Visual Studio, or by running 'dotnet run' within their respective folders.
-## User Logins (username - password)
+## User Logins [username - password]
 ### Users
-12345678 - abc123 (has bank accounts 4100 and 4101)
+[12345678 - abc123] has bank accounts 4100 and 4101
 
-38074569 - ilovermit2020 (has bank account 4200)
+[38074569 - ilovermit2020] has bank account 4200
 
-17963428 - youWill_n0tGuess-This! (has bank account 4300)
+[17963428 - youWill_n0tGuess-This!] has bank account 4300
 ### Admin (only works on admin site)
 admin - admin
 ## Ports
