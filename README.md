@@ -1,5 +1,6 @@
 # s3716853-a1
-Matthew Eletva's (s3716853) Web Development Technologies Assignment 2 2022 Summer
+Madeline Eletva's (s3716853) Web Development Technologies Assignment 2 2022 Summer
+Trello folder included as part of a assignment requirement and can be ignored
 ## Github URL
 https://github.com/rmit-wdt-fs-2022/s3716853-a2
 ## Start Guide
@@ -8,6 +9,20 @@ Migrations are all done in MCBACustomerAPI
 MCBAWebApplication requires MCBACustomerAPI to be running for it to function, so run MCBACustomerAPI and then run MCBAWebApplication.
 ### Admin
 MCBAAdminWebApplication requires MCBAAdminAPI to be running for it to function, so run MCBAAdminAPI and then run MCBAAdminWebApplication.
+
+All these can be run either through Visual Studio, or by running 'dotnet run' within their respective folders.
+## User Logins (username - password)
+### Users
+12345678 - abc123
+38074569 - ilovermit2020
+17963428 - youWill_n0tGuess-This!
+### Admin (only works on admin site)
+admin - admin
+## Ports
+MCBAWebApplication - 7575
+MCBACustomerAPI - 59823
+MCBAAdminWebApplication - 26984
+MCBAAdminAPI - 38999
 ## Admin Api
 Every table in the database has the following actions:
 
@@ -26,24 +41,24 @@ PUT - /Customer/Update
 
 Expected Request Body
 
-{ 
+{
 
   "customerID": "string",
-  
+
   "name": "string",
-  
+
   "tfn": "string",
-  
+
   "address": "string",
-  
+
   "suburb": "string",
-  
+
   "state": 0, <-this is an enum in the code, gets saved as int
-  
+
   "postCode": "string",
-  
+
   "mobile": "string"
-  
+
 }
 
 ### Transaction History
