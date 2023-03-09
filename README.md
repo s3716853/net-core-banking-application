@@ -22,7 +22,7 @@ All these can be run either through Visual Studio, or by running 'dotnet run' wi
 
 [17963428 - youWill_n0tGuess-This!] has bank account 4300
 ### Admin (only works on admin site)
-admin - admin
+[admin - admin]
 ## Ports
 MCBAWebApplication - 7575
 
